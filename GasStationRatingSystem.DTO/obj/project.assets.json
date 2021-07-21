@@ -11,17 +11,6 @@
           "bin/placeholder/GasStationRatingSystem.Common.dll": {}
         }
       }
-    },
-    ".NETCoreApp,Version=v3.1/win-x64": {
-      "GasStationRatingSystem.Common/1.0.0": {
-        "type": "project",
-        "compile": {
-          "bin/placeholder/GasStationRatingSystem.Common.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/GasStationRatingSystem.Common.dll": {}
-        }
-      }
     }
   },
   "libraries": {
@@ -101,11 +90,6 @@
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
-      }
-    },
-    "runtimes": {
-      "win-x64": {
-        "#import": []
       }
     }
   }

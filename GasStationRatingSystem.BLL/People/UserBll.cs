@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace GasStationRatingSystem.BLL.People
+namespace GasStationRatingSystem.BLL
 {
    public class UserBll
     {
@@ -22,6 +22,27 @@ namespace GasStationRatingSystem.BLL.People
         }
 
         #endregion
+        #region Get
+        public ResultDTO Get()
+        {
+            ResultDTO result = new ResultDTO();
+            result.data = new
+            {
+                Users = _repoUser.GetAllAsNoTracking().Where(p => p.IsActive && !p.IsDeleted && p.ID != _repoUser.UserId).Select(p => new
+                {
+                    Id = p.ID,
+                    Name = p.UserName
+                })
+            };
+            return result;
+        }
+        public User GetById(Guid id)
+        {
+           
+            return _repoUser.GetAllAsNoTracking().Where(p=>p.ID==id).FirstOrDefault();
+        }
+        #endregion
+
         #region Login
         public ResultDTO Login(UserParameters para)
         {
@@ -99,7 +120,7 @@ namespace GasStationRatingSystem.BLL.People
             }
             else
             {
-                result.Message = _repoUser.HttpContextAccessor.HttpContext.GetLocalizedString(nameof(Resources.GasStationRatingSystemResources.ErrorExists));
+                result.Message = _repoUser.HttpContextAccessor.HttpContext.GetLocalizedString(nameof(Resources.GasStationRatingSystemResources.UserNotExists));
             }
             return result;
 

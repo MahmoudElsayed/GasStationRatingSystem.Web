@@ -239,6 +239,63 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.ToTable("UserTypes");
                 });
 
+            modelBuilder.Entity("GasStationRatingSystem.Tables.VisitInfo", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AddedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("StationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("VisitNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("VisitTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AddedBy");
+
+                    b.HasIndex("DeletedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.HasIndex("StationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("VisitInfo", "Visit");
+                });
+
             modelBuilder.Entity("GasStationRatingSystem.Tables.GasStation", b =>
                 {
                     b.HasOne("GasStationRatingSystem.Tables.User", "CreatedUser")
@@ -339,9 +396,46 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Navigation("ModifiedUser");
                 });
 
+            modelBuilder.Entity("GasStationRatingSystem.Tables.VisitInfo", b =>
+                {
+                    b.HasOne("GasStationRatingSystem.Tables.User", "CreatedUser")
+                        .WithMany("VisitInfoCreated")
+                        .HasForeignKey("AddedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "DeletedUser")
+                        .WithMany("VisitInfoDeleted")
+                        .HasForeignKey("DeletedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "ModifiedUser")
+                        .WithMany("VisitInfoModified")
+                        .HasForeignKey("ModifiedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.GasStation", "GasStation")
+                        .WithMany("VisitInfo")
+                        .HasForeignKey("StationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("DeletedUser");
+
+                    b.Navigation("GasStation");
+
+                    b.Navigation("ModifiedUser");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("GasStationRatingSystem.Tables.GasStation", b =>
                 {
                     b.Navigation("GasStationContacts");
+
+                    b.Navigation("VisitInfo");
                 });
 
             modelBuilder.Entity("GasStationRatingSystem.Tables.User", b =>
@@ -369,6 +463,12 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Navigation("UserTypeDeleted");
 
                     b.Navigation("UserTypeModified");
+
+                    b.Navigation("VisitInfoCreated");
+
+                    b.Navigation("VisitInfoDeleted");
+
+                    b.Navigation("VisitInfoModified");
                 });
 
             modelBuilder.Entity("GasStationRatingSystem.Tables.UserType", b =>

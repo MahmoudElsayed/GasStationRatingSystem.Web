@@ -1,5 +1,4 @@
 ﻿using GasStationRatingSystem.BLL;
-using GasStationRatingSystem.BLL.People;
 using GasStationRatingSystem.DAL;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +20,7 @@ namespace GasStationRatingSystem.IOC
             services.AddScoped<UserBll>();
             services.AddScoped<SendBll>();
             services.AddScoped<GasStationBll>();
+            services.AddScoped<VisitBll>();
 
             
             #endregion

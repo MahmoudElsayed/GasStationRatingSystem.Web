@@ -40,6 +40,7 @@ namespace GasStationRatingSystem.Common
             public const string Page = nameof(Page);
             public const string Operation = nameof(Operation);
             public const string Report = nameof(Report);
+            public const string Visit = nameof(Visit);
 
 
 

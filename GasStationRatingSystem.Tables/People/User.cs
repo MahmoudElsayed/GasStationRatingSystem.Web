@@ -63,6 +63,11 @@ namespace GasStationRatingSystem.Tables
         public ICollection<GasStationContact> GasStationContactModified { get; set; }
         public ICollection<GasStationContact> GasStationContactDeleted { get; set; }
         #endregion
+        #region Visit
+        public ICollection<VisitInfo> VisitInfoCreated { get; set; }
+        public ICollection<VisitInfo> VisitInfoModified { get; set; }
+        public ICollection<VisitInfo> VisitInfoDeleted { get; set; }
+        #endregion
         #endregion
     }
 }

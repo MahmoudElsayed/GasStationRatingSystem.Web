@@ -40,6 +40,13 @@ namespace GasStationRatingSystem.DAL
             modelBuilder.Entity<User>().HasMany(x => x.GasStationContactDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
 
             #endregion
+            #region Visit
+            modelBuilder.Entity<User>().HasMany(x => x.VisitInfoCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.VisitInfoModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.VisitInfoDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+
+
+            #endregion
         }
 
         #endregion

@@ -141,4 +141,13 @@
   <data name="ValidationCodeInCorrect" xml:space="preserve">
     <value> كود التحقق غير صحيح </value>
   </data>
+  <data name="EnvironmentalSpecialistRequired" xml:space="preserve">
+    <value> المختص البيئي مطلوب </value>
+  </data>
+     <data name="StationRequired" xml:space="preserve">
+    <value> المحطة مطلوبة </value>
+  </data>
+ <data name="StationNotExists" xml:space="preserve">
+    <value>المحطة غير موجودة</value>
+  </data>
 </root>

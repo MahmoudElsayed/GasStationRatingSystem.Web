@@ -14,6 +14,9 @@ namespace GasStationRatingSystem.Tables
         public string OwnerName { get; set; }
         public string LauncherName { get; set; }
         public ICollection<GasStationContact> GasStationContacts { get; set; }
+        public ICollection<VisitInfo> VisitInfo { get; set; }
+
+        
     }
     [Table(nameof(GasStationContact) + "s", Schema = AppConstants.Areas.Guide)]
 

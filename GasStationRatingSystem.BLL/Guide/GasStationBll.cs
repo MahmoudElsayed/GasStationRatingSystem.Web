@@ -31,6 +31,11 @@ namespace GasStationRatingSystem.BLL
             result.data = new {Stations=data };
             return result;
         }
+        public GasStation GetById(Guid id)
+        {
+
+            return _repoGasStation.GetAllAsNoTracking().Where(p => p.ID == id).FirstOrDefault();
+        }
         #endregion
     }
 }

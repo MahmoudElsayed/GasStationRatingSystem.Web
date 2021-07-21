@@ -139,6 +139,13 @@
     <value> Validation Code Required </value>
   </data>
    <data name="ValidationCodeInCorrect" xml:space="preserve">
-    <value> Validation Code Required </value>
+    <value> Validation Code InCorrect </value>
   </data>
+    <data name="EnvironmentalSpecialistRequired" xml:space="preserve">
+    <value> Environmental Specialist Required </value>
+  </data>
+   <data name="StationRequired" xml:space="preserve">
+    <value> Station Required </value>
+  </data>
+
 </root>
