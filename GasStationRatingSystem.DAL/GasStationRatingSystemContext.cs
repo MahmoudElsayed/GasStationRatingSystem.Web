@@ -28,10 +28,19 @@ namespace GasStationRatingSystem.DAL
 
 
 
-        #endregion
+            #endregion
 
+            #region Guide
+            modelBuilder.Entity<User>().HasMany(x => x.GasStationCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.GasStationModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.GasStationDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
 
-    }
+            modelBuilder.Entity<User>().HasMany(x => x.GasStationContactCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.GasStationContactModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.GasStationContactDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+
+            #endregion
+        }
 
         #endregion
         #region Entities
@@ -39,12 +48,19 @@ namespace GasStationRatingSystem.DAL
         #region People
 
         public DbSet<User> Users { get; set; }
+        public DbSet<UserType> UserTypes { get; set; }
+
+
 
 
 
         #endregion
 
-  
+        #region Guide
+        public DbSet<GasStation> GasStations { get; set; }
+        public DbSet<GasStationContact> GasStationContacts { get; set; }
+
+        #endregion
         #endregion
     }
 }

@@ -55,7 +55,14 @@ namespace GasStationRatingSystem.Tables
 
 
         #endregion
-
+        #region Guide
+        public ICollection<GasStation> GasStationCreated { get; set; }
+        public ICollection<GasStation> GasStationModified { get; set; }
+        public ICollection<GasStation> GasStationDeleted { get; set; }
+        public ICollection<GasStationContact> GasStationContactCreated { get; set; }
+        public ICollection<GasStationContact> GasStationContactModified { get; set; }
+        public ICollection<GasStationContact> GasStationContactDeleted { get; set; }
+        #endregion
         #endregion
     }
 }

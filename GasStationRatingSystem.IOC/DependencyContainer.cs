@@ -20,6 +20,9 @@ namespace GasStationRatingSystem.IOC
             #region BLL
             services.AddScoped<UserBll>();
             services.AddScoped<SendBll>();
+            services.AddScoped<GasStationBll>();
+
+            
             #endregion
 
         }
