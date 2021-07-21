@@ -21,6 +21,7 @@ namespace GasStationRatingSystem.IOC
             services.AddScoped<SendBll>();
             services.AddScoped<GasStationBll>();
             services.AddScoped<VisitBll>();
+            services.AddScoped<QuestionsBll>();
 
             
             #endregion

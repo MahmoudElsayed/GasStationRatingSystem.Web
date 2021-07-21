@@ -38,7 +38,21 @@ namespace GasStationRatingSystem.DAL
             modelBuilder.Entity<User>().HasMany(x => x.GasStationContactCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
             modelBuilder.Entity<User>().HasMany(x => x.GasStationContactModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
             modelBuilder.Entity<User>().HasMany(x => x.GasStationContactDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+            #region Questions
+            modelBuilder.Entity<User>().HasMany(x => x.QuestionCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.QuestionModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.QuestionDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+           
+            modelBuilder.Entity<User>().HasMany(x => x.AnswerCategoryCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.AnswerCategoryModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.AnswerCategoryDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
 
+            modelBuilder.Entity<User>().HasMany(x => x.AnswerCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.AnswerModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.AnswerDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+
+
+            #endregion
             #endregion
             #region Visit
             modelBuilder.Entity<User>().HasMany(x => x.VisitInfoCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
@@ -47,6 +61,7 @@ namespace GasStationRatingSystem.DAL
 
 
             #endregion
+           
         }
 
         #endregion
@@ -66,7 +81,13 @@ namespace GasStationRatingSystem.DAL
         #region Guide
         public DbSet<GasStation> GasStations { get; set; }
         public DbSet<GasStationContact> GasStationContacts { get; set; }
+        #region Questions
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<AnswerCategory> AnswerCategories { get; set; }
+        public DbSet<Answer> Answers { get; set; }
 
+
+        #endregion
         #endregion
         #endregion
     }

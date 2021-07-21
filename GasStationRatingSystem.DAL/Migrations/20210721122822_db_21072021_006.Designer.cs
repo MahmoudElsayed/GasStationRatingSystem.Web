@@ -4,14 +4,16 @@ using GasStationRatingSystem.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GasStationRatingSystem.DAL.Migrations
 {
     [DbContext(typeof(GasStationRatingSystemContext))]
-    partial class GasStationRatingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20210721122822_db_21072021_006")]
+    partial class db_21072021_006
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.Property<Guid?>("AnswerCategoryId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("AnswerCategoryOrderNo")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -249,9 +248,6 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsLast")
-                        .HasColumnType("bit");
-
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -263,9 +259,6 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("QuestionParentNo")
-                        .HasColumnType("int");
 
                     b.Property<int>("QuestionType")
                         .HasColumnType("int");

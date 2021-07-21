@@ -4,14 +4,16 @@ using GasStationRatingSystem.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GasStationRatingSystem.DAL.Migrations
 {
     [DbContext(typeof(GasStationRatingSystemContext))]
-    partial class GasStationRatingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20210721121604_db_21072021_005")]
+    partial class db_21072021_005
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.Property<Guid?>("AnswerCategoryId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("AnswerCategoryOrderNo")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -54,9 +53,6 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<int?>("OrderNo")
-                        .HasColumnType("int");
 
                     b.Property<Guid?>("QuestionId")
                         .HasColumnType("uniqueidentifier");
@@ -249,23 +245,14 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsLast")
-                        .HasColumnType("bit");
-
                     b.Property<Guid?>("ModifiedBy")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("OrderNo")
-                        .HasColumnType("int");
-
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("QuestionParentNo")
-                        .HasColumnType("int");
 
                     b.Property<int>("QuestionType")
                         .HasColumnType("int");

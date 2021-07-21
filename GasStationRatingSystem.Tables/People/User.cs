@@ -62,12 +62,26 @@ namespace GasStationRatingSystem.Tables
         public ICollection<GasStationContact> GasStationContactCreated { get; set; }
         public ICollection<GasStationContact> GasStationContactModified { get; set; }
         public ICollection<GasStationContact> GasStationContactDeleted { get; set; }
+        #region Questions
+        public ICollection<Question> QuestionCreated { get; set; }
+        public ICollection<Question> QuestionModified { get; set; }
+        public ICollection<Question> QuestionDeleted { get; set; }
+
+        public ICollection<AnswerCategory> AnswerCategoryCreated { get; set; }
+        public ICollection<AnswerCategory> AnswerCategoryModified { get; set; }
+        public ICollection<AnswerCategory> AnswerCategoryDeleted { get; set; }
+
+        public ICollection<Answer> AnswerCreated { get; set; }
+        public ICollection<Answer> AnswerModified { get; set; }
+        public ICollection<Answer> AnswerDeleted { get; set; }
+        #endregion
         #endregion
         #region Visit
         public ICollection<VisitInfo> VisitInfoCreated { get; set; }
         public ICollection<VisitInfo> VisitInfoModified { get; set; }
         public ICollection<VisitInfo> VisitInfoDeleted { get; set; }
         #endregion
+        
         #endregion
     }
 }

@@ -4,14 +4,16 @@ using GasStationRatingSystem.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GasStationRatingSystem.DAL.Migrations
 {
     [DbContext(typeof(GasStationRatingSystemContext))]
-    partial class GasStationRatingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20210721134056_db_21072021_008")]
+    partial class db_21072021_008
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -263,9 +265,6 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.Property<Guid?>("ParentId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<int?>("QuestionParentNo")
-                        .HasColumnType("int");
 
                     b.Property<int>("QuestionType")
                         .HasColumnType("int");
