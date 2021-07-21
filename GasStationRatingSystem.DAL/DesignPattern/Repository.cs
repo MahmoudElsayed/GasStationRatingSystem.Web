@@ -30,6 +30,7 @@ namespace GasStationRatingSystem.DAL
         /// This Is The Current User Or The Logged In User Id
         /// </summary>
         public Guid UserId { get; }
+        public IHttpContextAccessor HttpContextAccessor { get; }
 
         /// <summary>
         /// This Is The Current User Language Or The Logged In User Language Id
@@ -52,6 +53,7 @@ namespace GasStationRatingSystem.DAL
             _db = _uow.GasStationRatingSystemDbContext;
             _configuration = configuration;
             data = _db.Set<T>();
+            HttpContextAccessor = httpContext;
         }
 
         #endregion

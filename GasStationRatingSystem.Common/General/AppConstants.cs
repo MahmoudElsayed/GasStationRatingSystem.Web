@@ -11,7 +11,7 @@ namespace GasStationRatingSystem.Common
         public struct StatusCodes
         {
             public const int Success = 200;
-            public const int Error = 200;
+            public const int Error = 422;
 
         }
         public static readonly object[] EmptyValues = { Guid.Empty, string.Empty, null };

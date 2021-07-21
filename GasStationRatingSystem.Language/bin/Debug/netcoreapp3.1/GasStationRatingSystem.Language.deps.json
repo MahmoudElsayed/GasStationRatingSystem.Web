@@ -1,0 +1,31 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "GasStationRatingSystem.Language/1.0.0": {
+        "runtime": {
+          "GasStationRatingSystem.Language.dll": {}
+        },
+        "resources": {
+          "ar/GasStationRatingSystem.Language.resources.dll": {
+            "locale": "ar"
+          },
+          "en/GasStationRatingSystem.Language.resources.dll": {
+            "locale": "en"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "GasStationRatingSystem.Language/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

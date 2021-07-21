@@ -4,4 +4,14 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.17" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GasStationRatingSystem.DAL\GasStationRatingSystem.DAL.csproj" />
+    <ProjectReference Include="..\GasStationRatingSystem.DTO\GasStationRatingSystem.DTO.csproj" />
+    <ProjectReference Include="..\GasStationRatingSystem.Tables\GasStationRatingSystem.Tables.csproj" />
+  </ItemGroup>
+
 </Project>

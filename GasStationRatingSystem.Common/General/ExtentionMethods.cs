@@ -1,13 +1,16 @@
 ﻿using GasStationRatingSystem.Common;
+using GasStationRatingSystem.Resources;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.StaticFiles;
+using Microsoft.Extensions.Localization;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -42,13 +45,13 @@ namespace GasStationRatingSystem
 
         public static Guid UserId(this IHttpContextAccessor httpContext)
         {
-           return (httpContext?.HttpContext.User.Identity.IsAuthenticated??false)?Guid.Parse(httpContext?.HttpContext.User.Identity.Name) :Guid.TryParse(httpContext?.HttpContext?.Request?.Cookies[AppConstants._UserIdCookie], out Guid guid) ? guid : Guid.Empty;
+            return (httpContext?.HttpContext.User.Identity.IsAuthenticated ?? false) ? Guid.Parse(httpContext?.HttpContext.User.Identity.Name) : Guid.TryParse(httpContext?.HttpContext?.Request?.Cookies[AppConstants._UserIdCookie], out Guid guid) ? guid : Guid.Empty;
         }
         public static Guid UserId(this HttpContext httpContext)
         {
             return (httpContext?.User.Identity.IsAuthenticated ?? false) ? Guid.Parse(httpContext?.User.Identity.Name) : Guid.TryParse(httpContext?.Request?.Cookies[AppConstants._UserIdCookie], out Guid guid) ? guid : Guid.Empty;
         }
-       
+
         public static Guid LanguageId(this HttpContext httpContext)
         {
             if (httpContext == null) return Guid.Empty;
@@ -75,6 +78,19 @@ namespace GasStationRatingSystem
         public static string LanguageCode(this HttpContext httpContext)
         {
             return httpContext.Request.Cookies[AppConstants.LanguageCodeCookie]?.ToLower() ?? "ar";
+        }
+        public static string GetLocalizedString(this HttpContext httpContext, string key)
+        {
+            var _StringLocalizer = httpContext.RequestServices.GetService(typeof(IStringLocalizer<GasStationRatingSystemResources>)) as IStringLocalizer<GasStationRatingSystemResources>;
+            var LangugaeCode = httpContext.LanguageCode();
+            if (string.IsNullOrWhiteSpace(key))
+                return "";
+            else
+            {
+                CultureInfo cult = new CultureInfo(LangugaeCode);
+
+                return _StringLocalizer.WithCulture(cult)[key].ToString();
+            }
         }
         public static bool LanguageIsArabic(this HttpContext httpContext)
         {

@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -22,6 +23,7 @@ namespace GasStationRatingSystem.DAL
         /// This Is The Current User Language Or The Logged In User Language Id
         /// </summary>
         public Guid CurrentLanguage { get; }
+        public IHttpContextAccessor HttpContextAccessor { get; }
 
         public bool IsDisposed { get; }
 

@@ -1,0 +1,15 @@
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\bin\Debug\netcoreapp3.1\GasStationRatingSystem.Language.deps.json
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\bin\Debug\netcoreapp3.1\GasStationRatingSystem.Language.dll
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\bin\Debug\netcoreapp3.1\GasStationRatingSystem.Language.pdb
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\GasStationRatingSystem.Language.csproj.GenerateResource.cache
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\GasStationRatingSystem.Language.AssemblyInfoInputs.cache
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\GasStationRatingSystem.Language.AssemblyInfo.cs
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\GasStationRatingSystem.Language.csproj.CoreCompileInputs.cache
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\GasStationRatingSystem.Language.dll
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\GasStationRatingSystem.Language.pdb
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\bin\Debug\netcoreapp3.1\ar\GasStationRatingSystem.Language.resources.dll
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\bin\Debug\netcoreapp3.1\en\GasStationRatingSystem.Language.resources.dll
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\GasStationRatingSystem.Language.ResourceGasStationRatingSystem.ar.resources
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\GasStationRatingSystem.Language.ResourceGasStationRatingSystem.en.resources
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\ar\GasStationRatingSystem.Language.resources.dll
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.Language\obj\Debug\netcoreapp3.1\en\GasStationRatingSystem.Language.resources.dll
