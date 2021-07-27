@@ -150,4 +150,7 @@
  <data name="StationNotExists" xml:space="preserve">
     <value>المحطة غير موجودة</value>
   </data>
+   <data name="VisitIdRequired" xml:space="preserve">
+    <value> مُعرف الزيارة مطلوب </value>
+  </data>
 </root>

@@ -27,40 +27,132 @@ namespace GasStationRatingSystem.BLL
 
         #endregion
         #region Get
+
+        public string GetTextOneOfQuestion(Guid questionId,int questionParentNo)
+        {
+           var QestionText =  _repoQuestion.GetAllAsNoTracking().Where(a => a.ParentId == questionId && a.IsLast == false && a.QuestionParentNo == questionParentNo).FirstOrDefault()?.Text??"";
+           return QestionText;
+        }
+
         public ResultDTO GetQuestions()
         {
             ResultDTO result = new ResultDTO();
             var lst = new List<object>();
-             _repoQuestion.GetAllAsNoTracking().Include(p => p.tblQuestion).Where(p => p.IsActive && !p.IsDeleted && !p.ParentId.HasValue).ToList().ForEach(
+             _repoQuestion.GetAllAsNoTracking().Include(p => p.tblQuestion).Where(p => p.IsActive && !p.IsDeleted && !p.ParentId.HasValue).OrderBy(p => p.OrderNo).ToList().ForEach(
                 p =>
                 {
-                    var Item = _repoQuestion.GetAllAsNoTracking().Where(a => a.ParentId == p.ID && a.IsLast == false&&p.QuestionParentNo==1).FirstOrDefault();
-                    var Item2 = _repoQuestion.GetAllAsNoTracking().Where(a => a.ParentId == p.ID && a.IsLast == false && p.QuestionParentNo == 2).FirstOrDefault();
 
-                    lst.Add(
+                    var Items = _repoQuestion.GetAllAsNoTracking().Where(a => a.ParentId == p.ID && a.IsLast == false&&a.QuestionParentNo.Value==1);
+                    if (Items.Count()!=0)
+                    {
+                        foreach (var Item in Items)
+                        {
+                            if (Item.ParentId.Value==Guid.Parse("bad98ed3-3db4-4b5c-a21f-0a96c367f06e"))
+                            {
+
+                            }
+                            
+                            {
+                                var Item2 = _repoQuestion.GetAllAsNoTracking().Where(a => a.ParentId == Item.ID && a.IsLast == false && a.QuestionParentNo.Value == 2).FirstOrDefault();
+                                string Item2Text = Item2?.Text ?? "";
+                                if (Item2 == null)
+                                {
+                                    Item2 = Item;
+                                   
+                                }
+                                lst.Add(
                         new
                         {
-                           // ParentItemId = p.ID,
-                            ParentItemText = p.Text,
-                           // ItemOneId = Item?.ID??null,
-                            ItemOneText = Item?.Text ?? "",
-                           // ItemTwoId = Item2?.ID ?? null,
-                            ItemTwoText = Item2?.Text ?? "",
+                        // ParentItemId = p.ID,
+                        ParentItemText = p.Text,
+                        // ItemOneId = Item?.ID??null,
+                        // ItemTwoId = Item2?.ID ?? null,
+                        ItemOneText = Item.Text,
+                            Items = new
+                            {
+                                ItemTwoText = Item2Text,
+                                Questions =
+                            _repoQuestion.GetAllAsNoTracking().Where(qu => qu.ParentId == (Item2 != null ? Item2.ID : p.ID) && qu.IsLast == true).ToList().Select(
+                                q => new
+                                {
+                                    Id = q.ID,
+                                    QuestionText = q.Text,
+                                    QuestionTypeNo=(int)q.QuestionType,
+                                    MultipleAnswerCategory = q.HasMultiCategoryAnswer,
+                                    ListOfReference=q.QuestionType== QuestionType.DropdownLicensedInstitution? new List<object>() { new {Id=Guid.NewGuid(),Text="جهة 1" }, new { Id = Guid.NewGuid(), Text = "جهة2" } }:null,
+                                    Answers = _repoAnswer.GetAllAsNoTracking().Where(an => an.QuestionId == q.ID).ToList().GroupBy(p => p.AnswerCategoryId).Select(AnswerCategory =>
+                                      new
+                                      {
+                                          AnswerCategoryId = AnswerCategory.Key,
+                                          Label = _repoAnswerCategory.GetAllAsNoTracking().Where(cat => cat.ID == AnswerCategory.Key).FirstOrDefault().Text
+                                      ,
+                                          Options = _repoAnswer.GetAllAsNoTracking().Where(Options => Options.QuestionId == q.ID && Options.AnswerCategoryId == AnswerCategory.Key).ToList().OrderBy(p => p.OrderNo).Select(
 
-                            Questions = _repoQuestion.GetAllAsNoTracking().Where(qu =>qu.ParentId == (Item!=null?Item.ID: p.ID) && qu.IsLast == true).ToList().Select(
-                                q=>new {Id=q.ID, QuestionText=q.Text
-                                , Answers=_repoAnswer.GetAllAsNoTracking().Where(an=>an.QuestionId==q.ID).ToList().GroupBy(p=>p.AnswerCategoryId).Select(AnswerCategory =>
-                                new {
-                                AnswerCategoryId= AnswerCategory.Key, Label= _repoAnswerCategory.GetAllAsNoTracking().Where(cat=>cat.ID==AnswerCategory.Key).FirstOrDefault().Text
-                                , Options= _repoAnswer.GetAllAsNoTracking().Where(Options => Options.QuestionId == q.ID&& Options.AnswerCategoryId==AnswerCategory.Key).ToList().OrderBy(p=>p.OrderNo).Select(
-                                    
-                                    op => new {OptionId=op.ID, OptionText=op.Text}
-                                    )
-                                })
+                                          op => new { OptionId = op.ID, OptionText = op.Text }
+                                          )
+                                      })
                                 }
                                 )
+                            }
+
+
 
                         });
+                            }
+
+
+                        }
+                    }
+                    else
+                    {
+                        var Item = _repoQuestion.GetAllAsNoTracking().Where(a => a.ParentId == p.ID && a.IsLast == false && a.QuestionParentNo == 1).FirstOrDefault();
+                        var Item2 = _repoQuestion.GetAllAsNoTracking().Where(a => a.ParentId == p.ID && a.IsLast == false && a.QuestionParentNo == 2).FirstOrDefault();
+
+
+                        if (Item2 == null)
+                        {
+                            Item2 = Item;
+                        }
+                        lst.Add(
+                            new
+                            {
+                                // ParentItemId = p.ID,
+                                ParentItemText = p.Text,
+                                // ItemOneId = Item?.ID??null,
+                                // ItemTwoId = Item2?.ID ?? null,
+                                ItemOneText = GetTextOneOfQuestion(p.ID, 1),
+                                Items = new
+                                {
+                                    ItemTwoText = GetTextOneOfQuestion(p.ID, 2),
+                                    Questions =
+                                _repoQuestion.GetAllAsNoTracking().Where(qu => qu.ParentId == (Item2 != null ? Item2.ID : p.ID) && qu.IsLast == true).ToList().Select(
+                                    q => new
+                                    {
+                                        Id = q.ID,
+                                        QuestionText = q.Text,
+                                        QuestionTypeNo = (int)q.QuestionType,
+
+                                        MultipleAnswerCategory = q.HasMultiCategoryAnswer,
+
+                                        Answers = _repoAnswer.GetAllAsNoTracking().Where(an => an.QuestionId == q.ID).ToList().GroupBy(p => p.AnswerCategoryId).Select(AnswerCategory =>
+                                          new
+                                          {
+                                              AnswerCategoryId = AnswerCategory.Key,
+                                              Label = _repoAnswerCategory.GetAllAsNoTracking().Where(cat => cat.ID == AnswerCategory.Key).FirstOrDefault().Text
+                                          ,
+                                              Options = _repoAnswer.GetAllAsNoTracking().Where(Options => Options.QuestionId == q.ID && Options.AnswerCategoryId == AnswerCategory.Key).ToList().OrderBy(p => p.OrderNo).Select(
+
+                                              op => new { OptionId = op.ID, OptionText = op.Text }
+                                              )
+                                          })
+                                    }
+                                    )
+                                }
+
+
+
+                            });
+                    }
                 }
                 ) ;
             result.data = new { Items = lst };

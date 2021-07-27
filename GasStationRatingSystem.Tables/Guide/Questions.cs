@@ -15,7 +15,7 @@ namespace GasStationRatingSystem.Tables
         [ForeignKey(nameof(tblQuestion))]
         public Guid? ParentId { get; set; }
         public string Text { get; set; }
-
+        public bool? HasMultiCategoryAnswer { get; set; }
         public QuestionType QuestionType { get; set; }
         public int? QuestionParentNo { get; set; }
 
@@ -34,6 +34,7 @@ namespace GasStationRatingSystem.Tables
     public class AnswerCategory : BaseEntity
     {
         public string Text { get; set; }
+
         public virtual ICollection<Answer> Answers { get; set; }
 
     }
@@ -51,5 +52,7 @@ namespace GasStationRatingSystem.Tables
 
         public virtual Question Question { get; set; }
         public virtual AnswerCategory AnswerCategory { get; set; }
+        public virtual ICollection<VisitAnswerOption> VisitAnswerOptions { get; set; }
+
     }
 }

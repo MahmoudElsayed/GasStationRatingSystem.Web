@@ -8,7 +8,26 @@
       "restore": {
         "projectUniqueName": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.Common\\GasStationRatingSystem.Common.csproj",
         "projectName": "GasStationRatingSystem.Common",
-        "projectPath": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.Common\\GasStationRatingSystem.Common.csproj"
+        "projectPath": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.Common\\GasStationRatingSystem.Common.csproj",
+        "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
+        "projectStyle": "PackagesConfig",
+        "configFilePaths": [
+          "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net472": {
+            "projectReferences": {}
+          }
+        },
+        "packagesConfigPath": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.Common\\packages.config"
       },
       "frameworks": {
         "net472": {}
@@ -75,6 +94,11 @@
             }
           },
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }

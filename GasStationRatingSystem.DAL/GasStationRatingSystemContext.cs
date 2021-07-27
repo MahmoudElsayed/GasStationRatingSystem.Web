@@ -59,9 +59,17 @@ namespace GasStationRatingSystem.DAL
             modelBuilder.Entity<User>().HasMany(x => x.VisitInfoModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
             modelBuilder.Entity<User>().HasMany(x => x.VisitInfoDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
 
+            modelBuilder.Entity<User>().HasMany(x => x.VisitAnswerCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.VisitAnswerModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.VisitAnswerDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+
+            modelBuilder.Entity<User>().HasMany(x => x.VisitAnswerOptionCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.VisitAnswerOptionModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.VisitAnswerOptionDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+
 
             #endregion
-           
+
         }
 
         #endregion
@@ -88,6 +96,13 @@ namespace GasStationRatingSystem.DAL
 
 
         #endregion
+        #endregion
+        #region Visit
+        public DbSet<VisitInfo> VisitInfo { get; set; }
+        public DbSet<VisitAnswer> VisitAnswers { get; set; }
+        public DbSet<VisitAnswerOption> VisitAnswerOptions { get; set; }
+
+
         #endregion
         #endregion
     }

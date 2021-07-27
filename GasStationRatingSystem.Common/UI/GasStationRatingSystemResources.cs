@@ -13,5 +13,6 @@
         public string EnvironmentalSpecialistRequired { get; set; }
         public string StationNotExists { get; set; }
         public string StationRequired { get; set; }
+        public string VisitIdRequired { get; set; }
     }
 }

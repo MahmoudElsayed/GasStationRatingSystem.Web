@@ -13,12 +13,15 @@ namespace GasStationRatingSystem.BLL
         #region Fields
 
         private readonly IRepository<VisitInfo> _repoVisitInfo;
+        private readonly IRepository<VisitAnswer> _repoVisitAnswer;
+
         private readonly UserBll _userBll;
         private readonly GasStationBll _gasStationBll;
 
-        public VisitBll(IRepository<VisitInfo> repoVisitInfo,UserBll userBll, GasStationBll gasStationBll)
+        public VisitBll(IRepository<VisitInfo> repoVisitInfo, IRepository<VisitAnswer> repoVisitAnswer, UserBll userBll, GasStationBll gasStationBll)
         {
             _repoVisitInfo = repoVisitInfo;
+            _repoVisitAnswer = repoVisitAnswer;
             _userBll = userBll;
             _gasStationBll = gasStationBll;
         }
@@ -55,6 +58,29 @@ namespace GasStationRatingSystem.BLL
                     result.Message = _repoVisitInfo.HttpContextAccessor.HttpContext.GetLocalizedString(nameof(Resources.GasStationRatingSystemResources.ErrorExists));
                 }
             }
+            return result;
+        }
+        #endregion
+        #region Save Visit Answers
+        public ResultDTO SaveVisitAnswer(SaveVisitAnswersDTO para)
+        {
+            ResultDTO result = new ResultDTO();
+
+            List<VisitAnswerOption> visitAnswerOptions = new List<VisitAnswerOption>();
+                VisitAnswer data = new VisitAnswer() { VisitId=para.VisitId.Value, AddedBy=_repoVisitAnswer.UserId  };
+            para.Options.ForEach(p => { visitAnswerOptions.Add(new VisitAnswerOption() { AnswerId = p.OptionId, RefId=p.RefId, VisitAnswerId=data.ID }); });
+            data.VisitAnswerOptions = visitAnswerOptions;
+            if (_repoVisitAnswer.Insert(data))
+                {
+                result.data = null;
+
+                    result.Message = _repoVisitInfo.HttpContextAccessor.HttpContext.GetLocalizedString(nameof(Resources.GasStationRatingSystemResources.SuccessfullyDone));
+                }
+                else
+                {
+                    result.Message = _repoVisitInfo.HttpContextAccessor.HttpContext.GetLocalizedString(nameof(Resources.GasStationRatingSystemResources.ErrorExists));
+                }
+            
             return result;
         }
         #endregion

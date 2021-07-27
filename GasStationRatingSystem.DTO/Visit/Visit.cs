@@ -16,4 +16,16 @@ namespace GasStationRatingSystem.DTO
         public Guid? StationId { get; set; } = null;
 
     }
+    public class SaveVisitAnswersDTO
+    {
+        [Required(ErrorMessage = nameof(GasStationRatingSystemResources.VisitIdRequired))]
+
+        public Guid? VisitId { get; set; }
+        public List<OptionsDTO> Options { get; set; }
+    }
+    public class OptionsDTO
+    {
+        public Guid? OptionId { get; set; }
+        public Guid? RefId { get; set; }
+    }
 }

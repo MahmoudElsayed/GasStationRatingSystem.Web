@@ -4,14 +4,16 @@ using GasStationRatingSystem.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GasStationRatingSystem.DAL.Migrations
 {
     [DbContext(typeof(GasStationRatingSystemContext))]
-    partial class GasStationRatingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20210726113244_db_2607202101")]
+    partial class db_2607202101
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -243,7 +245,7 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("HasMultiCategoryAnswer")
+                    b.Property<bool?>("HasMultiAnswer")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsActive")
@@ -405,106 +407,6 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.HasIndex("ModifiedBy");
 
                     b.ToTable("UserTypes");
-                });
-
-            modelBuilder.Entity("GasStationRatingSystem.Tables.VisitAnswer", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AddedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("VisitId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AddedBy");
-
-                    b.HasIndex("DeletedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("VisitId");
-
-                    b.ToTable("VisitAnswers", "Visit");
-                });
-
-            modelBuilder.Entity("GasStationRatingSystem.Tables.VisitAnswerOption", b =>
-                {
-                    b.Property<Guid>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AddedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("AnswerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<Guid?>("ModifiedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("ModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid?>("RefId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("VisitAnswerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("AddedBy");
-
-                    b.HasIndex("AnswerId");
-
-                    b.HasIndex("DeletedBy");
-
-                    b.HasIndex("ModifiedBy");
-
-                    b.HasIndex("VisitAnswerId");
-
-                    b.ToTable("VisitAnswerOptions", "Visit");
                 });
 
             modelBuilder.Entity("GasStationRatingSystem.Tables.VisitInfo", b =>
@@ -745,68 +647,6 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Navigation("ModifiedUser");
                 });
 
-            modelBuilder.Entity("GasStationRatingSystem.Tables.VisitAnswer", b =>
-                {
-                    b.HasOne("GasStationRatingSystem.Tables.User", "CreatedUser")
-                        .WithMany("VisitAnswerCreated")
-                        .HasForeignKey("AddedBy");
-
-                    b.HasOne("GasStationRatingSystem.Tables.User", "DeletedUser")
-                        .WithMany("VisitAnswerDeleted")
-                        .HasForeignKey("DeletedBy");
-
-                    b.HasOne("GasStationRatingSystem.Tables.User", "ModifiedUser")
-                        .WithMany("VisitAnswerModified")
-                        .HasForeignKey("ModifiedBy");
-
-                    b.HasOne("GasStationRatingSystem.Tables.VisitInfo", "VisitInfo")
-                        .WithMany("VisitAnswers")
-                        .HasForeignKey("VisitId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CreatedUser");
-
-                    b.Navigation("DeletedUser");
-
-                    b.Navigation("ModifiedUser");
-
-                    b.Navigation("VisitInfo");
-                });
-
-            modelBuilder.Entity("GasStationRatingSystem.Tables.VisitAnswerOption", b =>
-                {
-                    b.HasOne("GasStationRatingSystem.Tables.User", "CreatedUser")
-                        .WithMany("VisitAnswerOptionCreated")
-                        .HasForeignKey("AddedBy");
-
-                    b.HasOne("GasStationRatingSystem.Tables.Answer", "Answer")
-                        .WithMany("VisitAnswerOptions")
-                        .HasForeignKey("AnswerId");
-
-                    b.HasOne("GasStationRatingSystem.Tables.User", "DeletedUser")
-                        .WithMany("VisitAnswerOptionDeleted")
-                        .HasForeignKey("DeletedBy");
-
-                    b.HasOne("GasStationRatingSystem.Tables.User", "ModifiedUser")
-                        .WithMany("VisitAnswerOptionModified")
-                        .HasForeignKey("ModifiedBy");
-
-                    b.HasOne("GasStationRatingSystem.Tables.VisitAnswer", "VisitAnswer")
-                        .WithMany("VisitAnswerOptions")
-                        .HasForeignKey("VisitAnswerId");
-
-                    b.Navigation("Answer");
-
-                    b.Navigation("CreatedUser");
-
-                    b.Navigation("DeletedUser");
-
-                    b.Navigation("ModifiedUser");
-
-                    b.Navigation("VisitAnswer");
-                });
-
             modelBuilder.Entity("GasStationRatingSystem.Tables.VisitInfo", b =>
                 {
                     b.HasOne("GasStationRatingSystem.Tables.User", "CreatedUser")
@@ -840,11 +680,6 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Navigation("ModifiedUser");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("GasStationRatingSystem.Tables.Answer", b =>
-                {
-                    b.Navigation("VisitAnswerOptions");
                 });
 
             modelBuilder.Entity("GasStationRatingSystem.Tables.AnswerCategory", b =>
@@ -910,18 +745,6 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.Navigation("UserTypeModified");
 
-                    b.Navigation("VisitAnswerCreated");
-
-                    b.Navigation("VisitAnswerDeleted");
-
-                    b.Navigation("VisitAnswerModified");
-
-                    b.Navigation("VisitAnswerOptionCreated");
-
-                    b.Navigation("VisitAnswerOptionDeleted");
-
-                    b.Navigation("VisitAnswerOptionModified");
-
                     b.Navigation("VisitInfoCreated");
 
                     b.Navigation("VisitInfoDeleted");
@@ -932,16 +755,6 @@ namespace GasStationRatingSystem.DAL.Migrations
             modelBuilder.Entity("GasStationRatingSystem.Tables.UserType", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("GasStationRatingSystem.Tables.VisitAnswer", b =>
-                {
-                    b.Navigation("VisitAnswerOptions");
-                });
-
-            modelBuilder.Entity("GasStationRatingSystem.Tables.VisitInfo", b =>
-                {
-                    b.Navigation("VisitAnswers");
                 });
 #pragma warning restore 612, 618
         }

@@ -80,8 +80,16 @@ namespace GasStationRatingSystem.Tables
         public ICollection<VisitInfo> VisitInfoCreated { get; set; }
         public ICollection<VisitInfo> VisitInfoModified { get; set; }
         public ICollection<VisitInfo> VisitInfoDeleted { get; set; }
+
+        public ICollection<VisitAnswer> VisitAnswerCreated { get; set; }
+        public ICollection<VisitAnswer> VisitAnswerModified { get; set; }
+        public ICollection<VisitAnswer> VisitAnswerDeleted { get; set; }
+
+        public ICollection<VisitAnswerOption> VisitAnswerOptionCreated { get; set; }
+        public ICollection<VisitAnswerOption> VisitAnswerOptionModified { get; set; }
+        public ICollection<VisitAnswerOption> VisitAnswerOptionDeleted { get; set; }
         #endregion
-        
+
         #endregion
     }
 }
