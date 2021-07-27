@@ -258,6 +258,8 @@
   <ItemGroup>
     <Compile Include="General\AppConstants.cs" />
     <Compile Include="General\AppDateTime.cs" />
+    <Compile Include="General\DataTableRequest.cs" />
+    <Compile Include="General\DataTableResponse.cs" />
     <Compile Include="General\Eunms.cs" />
     <Compile Include="General\ExtentionMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

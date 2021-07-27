@@ -1,9 +1,11 @@
-﻿using GasStationRatingSystem.Common;
+﻿using AutoMapper;
+using GasStationRatingSystem.Common;
 using GasStationRatingSystem.DAL;
 using GasStationRatingSystem.DTO;
 using GasStationRatingSystem.Tables;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 
@@ -12,6 +14,7 @@ namespace GasStationRatingSystem.BLL
    public class UserBll
     {
         #region Fields
+        private const string _spUsers = "People.[spUsers]";
 
         private readonly IRepository<User> _repoUser;
 
@@ -36,6 +39,7 @@ namespace GasStationRatingSystem.BLL
             };
             return result;
         }
+
         public User GetById(Guid id)
         {
            
@@ -162,5 +166,159 @@ namespace GasStationRatingSystem.BLL
         }
 
         #endregion
+
+        #region Web
+        public ResultViewModel Save(UserDTO userDTO)
+        {
+            ResultViewModel resultViewModel = new ResultViewModel() { Message = AppConstants.Messages.SavedFailed };
+            var config = new MapperConfiguration(p => p.CreateMap<UserDTO, User>());
+            var mapper = new Mapper(config);
+            var user = mapper.Map<User>(userDTO);
+            var tbl = _repoUser.GetById(user.ID);
+            if (tbl == null)
+            {
+                if (_repoUser.GetAll().Where(p => p.UserName.Trim().ToLower() == userDTO.UserName.Trim().ToLower()).FirstOrDefault() != null)
+                {
+                    resultViewModel.Message = AppConstants.UserMessages.UsernameAlreadyExists;
+                    return resultViewModel;
+
+                }
+
+                if (_repoUser.GetAll().Where(p => p.Email.Trim().ToLower() == userDTO.Email.Trim().ToLower()).FirstOrDefault() != null)
+                {
+                    resultViewModel.Message = AppConstants.UserMessages.EmailAlreadyExists;
+                    return resultViewModel;
+                }
+
+                user.PasswordHash = AppConstants.DefaultPassword.EncryptString();
+                user.Salt = AppConstants.EncryptKey;
+
+                if (_repoUser.Insert(user))
+                {
+                    resultViewModel.Status = true;
+                    resultViewModel.Message = AppConstants.Messages.SavedSuccess;
+
+                }
+            }
+            else
+            {
+                if (_repoUser.GetAll().Where(p => p.ID != tbl.ID && p.UserName.Trim().ToLower() == userDTO.UserName.Trim().ToLower()).FirstOrDefault() != null)
+                {
+                    resultViewModel.Message = AppConstants.UserMessages.UsernameAlreadyExists;
+                    return resultViewModel;
+
+                }
+
+                if (_repoUser.GetAll().Where(p => p.ID != tbl.ID && p.Email.Trim().ToLower() == userDTO.Email.Trim().ToLower()).FirstOrDefault() != null)
+                {
+                    resultViewModel.Message = AppConstants.UserMessages.EmailAlreadyExists;
+                    return resultViewModel;
+                }
+
+                tbl.UserName = user.UserName;
+                tbl.Email = user.Email;
+                tbl.IsActive = user.IsActive;
+                if (_repoUser.Update(tbl))
+                {
+                    resultViewModel.Status = true;
+                    resultViewModel.Message = AppConstants.Messages.SavedSuccess;
+
+                }
+            }
+
+
+
+
+
+            return resultViewModel;
+        }
+        public ResultViewModel Delete(Guid id)
+        {
+            ResultViewModel resultViewModel = new ResultViewModel();
+            var tbl = _repoUser.GetById(id);
+            tbl.IsDeleted = true;
+            tbl.DeletedBy = null;
+            tbl.DeletedDate = AppDateTime.Now;
+            var IsSuceess = _repoUser.Update(tbl);
+
+            resultViewModel.Status = IsSuceess;
+            resultViewModel.Message = IsSuceess ? AppConstants.Messages.DeletedSuccess : AppConstants.Messages.DeletedFailed;
+
+
+            return resultViewModel;
+        }
+        public ResultViewModel ChangeStatus(Guid id)
+        {
+            ResultViewModel resultViewModel = new ResultViewModel();
+            var tbl = _repoUser.GetById(id);
+            tbl.IsActive = !tbl.IsActive;
+            var IsSuceess = _repoUser.Update(tbl);
+
+            resultViewModel.Status = IsSuceess;
+            resultViewModel.Message = IsSuceess ? AppConstants.Messages.ChangedStatusSuccess : AppConstants.Messages.ChangedStatusFailed;
+
+
+            return resultViewModel;
+        }
+
+        #region LoadData
+        public DataTableResponse LoadData(DataTableRequest mdl)
+        {
+            var data = _repoUser.ExecuteStoredProcedure<UserDTO>
+                (_spUsers, mdl?.ToSqlParameter(_repoUser.UserId), CommandType.StoredProcedure);
+
+            return new DataTableResponse() { AaData = data, ITotalRecords = data?.FirstOrDefault()?.TotalCount ?? 0 };
+        }
+        #endregion
+        #region Login For Web
+        #region  تسجيل الدخول
+        public User LogInWeb(LogInDTO mdl)
+        {
+            if (mdl != null && !mdl.UserCode.IsEmpty() && !mdl.Password.IsEmpty())
+            {
+                var pass = mdl.Password.EncryptString();
+                var user = _repoUser.GetAll().Where(c => c.IsActive == true && !c.IsDeleted && (c.UserName == mdl.UserCode || c.Email == mdl.UserCode) && c.PasswordHash == pass).FirstOrDefault();
+                if (user != null)
+                {
+                    return user;
+                }
+            }
+
+            return null;
+        }
+        #endregion
+        #region تغيير كلمة المرور
+        public ResultViewModel ChangeOldPasswordWeb(ChangePasswordDTO mdl)
+        {
+            ResultViewModel resultViewModel = new ResultViewModel() { Status = false, Message = AppConstants.Messages.SavedFailed };
+            if (mdl != null)
+            {
+                var currentUser = _repoUser.GetById(_repoUser.UserId);
+                if (currentUser != null)
+                {
+                    var hashPass = mdl.OldPassword.EncryptString();
+                    if (hashPass == currentUser.PasswordHash)
+                    {
+                        var hashNewPass = (mdl.NewPassword).EncryptString();
+                        if (hashNewPass != null)
+                        {
+                            currentUser.PasswordHash = hashNewPass;
+                            if (_repoUser.Update(currentUser))
+                            {
+                                resultViewModel.Status = true;
+                                resultViewModel.Message = AppConstants.Messages.SavedSuccess;
+                            }
+                        }
+                    }
+                }
+            }
+            return resultViewModel;
+        }
+
+        #endregion
+
+        #endregion
+        #endregion
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using GasStationRatingSystem.Resources;
+﻿using GasStationRatingSystem.Common;
+using GasStationRatingSystem.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -46,4 +47,24 @@ namespace GasStationRatingSystem.DTO
         public string Username { get; set; }
         public bool UseDefaultPassword { get; set; } = true;
     }
+    #region Web
+    public class UserDTO
+    {
+        public int TotalCount { get; set; } = 0;
+        public Guid ID { get; set; }
+        [Required(ErrorMessage = AppConstants.Messages.RequiredMessage), StringLength(100)]
+        public string UserName { get; set; }
+
+        [Required(ErrorMessage = AppConstants.Messages.RequiredMessage)]
+        public string Email { get; set; }
+
+        public string PasswordHash { get; set; }
+
+        public bool IsAdmin { get; set; } = false;
+
+        public bool IsActive { get; set; }
+        public string AddedDate { get; set; }
+
+    }
+    #endregion
 }
