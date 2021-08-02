@@ -4,14 +4,16 @@ using GasStationRatingSystem.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GasStationRatingSystem.DAL.Migrations
 {
     [DbContext(typeof(GasStationRatingSystemContext))]
-    partial class GasStationRatingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20210731155555_db_2021_07_31_01")]
+    partial class db_2021_07_31_01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,35 +131,8 @@ namespace GasStationRatingSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Accreditation")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("AddedBy")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("AddedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AreaName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AuthorityBranch")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("BuildingNo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CityName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float?>("CountOfDailyWorkingHours")
-                        .HasColumnType("real");
-
-                    b.Property<float?>("CountOfVentilationTubes")
-                        .HasColumnType("real");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
@@ -168,55 +143,13 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DistrictName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ElectricityNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EnvDescriptionEast")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EnvDescriptionEastNotes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EnvDescriptionNorth")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EnvDescriptionNorthNotes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EnvDescriptionSouth")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EnvDescriptionSouthNotes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EnvDescriptionWest")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("EnvDescriptionWestNotes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<float?>("HeightOfVentilationPipe")
-                        .HasColumnType("real");
-
-                    b.Property<string>("InspectorName")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Lat")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("LauncherName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Lng")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("ModifiedBy")
@@ -228,32 +161,8 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("NameInLicense")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("OwnerName")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PlatePicture")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RegionName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StationClass")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StatusText")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("StreetName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("WorkerCount")
-                        .HasColumnType("int");
 
                     b.HasKey("ID");
 
@@ -440,7 +349,7 @@ namespace GasStationRatingSystem.DAL.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<Guid?>("UserTypeId")
+                    b.Property<Guid>("UserTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("ID");
@@ -635,9 +544,6 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Property<DateTime?>("ModifiedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("PageIndex")
-                        .HasColumnType("int");
-
                     b.Property<Guid>("StationId")
                         .HasColumnType("uniqueidentifier");
 
@@ -812,7 +718,9 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.HasOne("GasStationRatingSystem.Tables.UserType", "UserType")
                         .WithMany("Users")
-                        .HasForeignKey("UserTypeId");
+                        .HasForeignKey("UserTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("CreatedUser");
 

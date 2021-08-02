@@ -3,6 +3,7 @@ using GasStationRatingSystem.DTO;
 using GasStationRatingSystem.Tables;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GasStationRatingSystem.BLL
@@ -72,8 +73,13 @@ namespace GasStationRatingSystem.BLL
             data.VisitAnswerOptions = visitAnswerOptions;
             if (_repoVisitAnswer.Insert(data))
                 {
-                result.data = null;
-
+              var visit=  _repoVisitInfo.GetAllAsNoTracking().Where(p => p.ID == para.VisitId).FirstOrDefault();
+                if (visit!=null)
+                {
+                    visit.PageIndex = para.PageIndex;
+                    _repoVisitInfo.Update(visit);
+                }
+                    result.data = new { };
                     result.Message = _repoVisitInfo.HttpContextAccessor.HttpContext.GetLocalizedString(nameof(Resources.GasStationRatingSystemResources.SuccessfullyDone));
                 }
                 else

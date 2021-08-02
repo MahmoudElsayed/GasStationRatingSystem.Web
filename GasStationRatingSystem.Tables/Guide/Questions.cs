@@ -24,7 +24,9 @@ namespace GasStationRatingSystem.Tables
         public virtual Question tblQuestion { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
         public virtual ICollection<Answer> Answers { get; set; }
+        public virtual ICollection<VisitAnswerOption> VisitAnswerOptions { get; set; }
 
+        
     }
     public enum QuestionType {Normal, DropdownLicensedInstitution }
     #endregion

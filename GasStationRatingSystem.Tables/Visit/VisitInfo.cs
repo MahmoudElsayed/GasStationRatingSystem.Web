@@ -18,6 +18,8 @@ namespace GasStationRatingSystem.Tables
         public Guid StationId { get; set; }
         public DateTime VisitTime { get; set; } = AppDateTime.Now;
         public string VisitNo { get; set; } = AppDateTime.Now.ToString("yyyyMMddHHmm",new CultureInfo("en-US"))+new Random((int)AppDateTime.Now.Ticks).Next(1111, 9999);
+        public int? PageIndex { get; set; } = 0;
+
         public virtual  User User { get; set; }
         public virtual GasStation GasStation { get; set; }
         public virtual ICollection<VisitAnswer> VisitAnswers { get; set; }
@@ -42,9 +44,14 @@ namespace GasStationRatingSystem.Tables
         [ForeignKey(nameof(Answer))]
 
         public Guid? AnswerId { get; set; }
+        [ForeignKey(nameof(Question))]
+
+        public Guid? MainItemId { get; set; }
         public Guid? RefId { get; set; }
         public virtual VisitAnswer VisitAnswer { get; set; }
         public virtual Answer Answer { get; set; }
+        public virtual Question Question { get; set; }
+
 
     }
 }

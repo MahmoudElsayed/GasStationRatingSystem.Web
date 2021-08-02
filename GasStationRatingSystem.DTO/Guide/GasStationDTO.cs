@@ -1,15 +1,16 @@
 ﻿using GasStationRatingSystem.Common;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-namespace GasStationRatingSystem.Tables
+namespace GasStationRatingSystem.DTO
 {
-    [Table(nameof(GasStation) + "s", Schema = AppConstants.Areas.Guide)]
-
-    public class GasStation:BaseEntity
+   public class GasStationDTO
     {
+        public int TotalCount { get; set; } = 0;
+        public Guid ID { get; set; }
+
         public string Name { get; set; }
         public string OwnerName { get; set; }
         public string NameInLicense { get; set; }
@@ -36,7 +37,7 @@ namespace GasStationRatingSystem.Tables
         public string CityName { get; set; }
         public string DistrictName { get; set; }
         public string StreetName { get; set; }
-        public DateTime? AddedDate { get; set; }
+        public string AddedDate { get; set; }
 
 
         public int? WorkerCount { get; set; }
@@ -45,27 +46,7 @@ namespace GasStationRatingSystem.Tables
         public float? HeightOfVentilationPipe { get; set; }
 
         public string LauncherName { get; set; }
-
         public string PlatePicture { get; set; }
         public string Accreditation { get; set; }
-
-        public ICollection<GasStationContact> GasStationContacts { get; set; }
-        public ICollection<VisitInfo> VisitInfo { get; set; }
-
-        
-    }
-    [Table(nameof(GasStationContact) + "s", Schema = AppConstants.Areas.Guide)]
-
-    public class GasStationContact:BaseEntity
-    {
-        public ContactType ContactType { get; set; }
-        public string Value { get; set; }
-        [ForeignKey(nameof(GasStation))]
-        public Guid GasStationId { get; set; }
-        public virtual GasStation GasStation { get; set; }
-    }
-    public enum ContactType
-    {
-        Phone,Email
     }
 }

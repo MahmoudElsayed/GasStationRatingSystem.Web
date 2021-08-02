@@ -4,14 +4,16 @@ using GasStationRatingSystem.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GasStationRatingSystem.DAL.Migrations
 {
     [DbContext(typeof(GasStationRatingSystemContext))]
-    partial class GasStationRatingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20210802145149_db_02082021_01")]
+    partial class db_02082021_01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -129,9 +131,6 @@ namespace GasStationRatingSystem.DAL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Accreditation")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<Guid?>("AddedBy")
                         .HasColumnType("uniqueidentifier");
 
@@ -232,9 +231,6 @@ namespace GasStationRatingSystem.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OwnerName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PlatePicture")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PostCode")

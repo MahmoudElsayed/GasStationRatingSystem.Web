@@ -39,7 +39,7 @@ namespace GasStationRatingSystem.Tables
         /// </summary>
         public string Salt { get; set; }
         [ForeignKey(nameof(UserType))]
-        public Guid UserTypeId { get; set; }
+        public Guid? UserTypeId { get; set; }
         #region Relations
 
         public virtual UserType UserType { get; set; }
