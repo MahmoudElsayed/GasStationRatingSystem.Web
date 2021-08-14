@@ -16,13 +16,15 @@ namespace GasStationRatingSystem.BLL
         private readonly IRepository<Question> _repoQuestion;
         private readonly IRepository<Answer> _repoAnswer;
         private readonly IRepository<AnswerCategory> _repoAnswerCategory;
+        private readonly IRepository<ManualDistribution> _repoManualDistribution;
 
 
-        public QuestionsBll(IRepository<Question> repoQuestion, IRepository<Answer> repoAnswer, IRepository<AnswerCategory> repoAnswerCategory)
+        public QuestionsBll(IRepository<Question> repoQuestion, IRepository<Answer> repoAnswer, IRepository<AnswerCategory> repoAnswerCategory, IRepository<ManualDistribution> repoManualDistribution)
         {
             _repoQuestion = repoQuestion;
             _repoAnswer = repoAnswer;
             _repoAnswerCategory = repoAnswerCategory;
+            _repoManualDistribution = repoManualDistribution;
         }
 
         #endregion
@@ -303,7 +305,7 @@ namespace GasStationRatingSystem.BLL
         {
             ResultDTO result = new ResultDTO();
             var _repoVisitInfo = _repoQuestion.HttpContextAccessor.HttpContext.RequestServices.GetService(typeof(IRepository<VisitInfo>)) as IRepository<VisitInfo>;
-            result.data = _repoVisitInfo.GetAllAsNoTracking().Include(p=>p.GasStation).Where(p => p.IsActive && !p.IsDeleted && p.PageIndex < 13).Select(p=>new { 
+            result.data = _repoVisitInfo.GetAllAsNoTracking().Include(p=>p.GasStation).Where(p => p.IsActive && !p.IsDeleted && _repoManualDistribution.GetAllAsNoTracking().Count(s=>s.UserId==_repoAnswer.UserId&&s.StationId==p.StationId)==1&& p.PageIndex < 13).Select(p=>new { 
              VisitId=p.ID,
              PageIndex=p.PageIndex,
              VisitNo=p.VisitNo,

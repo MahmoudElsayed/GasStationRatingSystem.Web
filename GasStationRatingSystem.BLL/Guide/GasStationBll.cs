@@ -18,10 +18,11 @@ namespace GasStationRatingSystem.BLL
 
         private readonly IRepository<GasStation> _repoGasStation;
 
-
-        public GasStationBll(IRepository<GasStation> repoGasStation)
+        private readonly ManualDistributionBll _manualDistributionBll;
+        public GasStationBll(IRepository<GasStation> repoGasStation, ManualDistributionBll manualDistributionBll)
         {
             _repoGasStation = repoGasStation;
+            _manualDistributionBll = manualDistributionBll;
         }
 
         #endregion
@@ -30,15 +31,27 @@ namespace GasStationRatingSystem.BLL
         {
             ResultDTO result = new ResultDTO();
             var data = _repoGasStation.GetAllAsNoTracking().Where(p => p.IsActive && !p.IsDeleted).Select(p=>new { 
-            Id=p.ID, Name=p.Name
-            });
+            Id=p.ID, Name=p.NameInLicense.TrimEnd()
+                ,Latitude=p.Lat
+                ,Longitude=p.Lng
+            });;
             result.data = new {Stations=data };
             return result;
+        }
+        public ResultDTO GetStaions()
+        {
+          
+            return _manualDistributionBll.GetStaions();
         }
         public GasStation GetById(Guid id)
         {
 
             return _repoGasStation.GetAllAsNoTracking().Where(p => p.ID == id).FirstOrDefault();
+        }
+        public IEnumerable<GasStation> GetStaions(Guid districtId)
+        {
+
+            return _repoGasStation.GetAllAsNoTracking().Where(p => p.DistrictId == districtId);
         }
         #endregion
         public ResultViewModel Save(GasStationDTO GasStationDTO)

@@ -40,9 +40,15 @@ namespace GasStationRatingSystem.Tables
         public string Salt { get; set; }
         [ForeignKey(nameof(UserType))]
         public Guid? UserTypeId { get; set; }
+        [ForeignKey(nameof(City))]
+        public Guid? CityId { get; set; }
+
         #region Relations
 
         public virtual UserType UserType { get; set; }
+        public virtual City City { get; set; }
+        public ICollection<ManualDistribution> ManualDistributions { get; set; }
+
         #region User
         public ICollection<User> UserCreated { get; set; }
         public ICollection<User> UserModified { get; set; }
@@ -50,7 +56,6 @@ namespace GasStationRatingSystem.Tables
         public ICollection<UserType> UserTypeCreated { get; set; }
         public ICollection<UserType> UserTypeModified { get; set; }
         public ICollection<UserType> UserTypeDeleted { get; set; }
-
 
 
 
@@ -62,6 +67,15 @@ namespace GasStationRatingSystem.Tables
         public ICollection<GasStationContact> GasStationContactCreated { get; set; }
         public ICollection<GasStationContact> GasStationContactModified { get; set; }
         public ICollection<GasStationContact> GasStationContactDeleted { get; set; }
+
+        public ICollection<City> CityCreated { get; set; }
+        public ICollection<City> CityModified { get; set; }
+        public ICollection<City> CityDeleted { get; set; }
+
+        public ICollection<District> DistrictCreated { get; set; }
+        public ICollection<District> DistrictModified { get; set; }
+        public ICollection<District> DistrictDeleted { get; set; }
+
         #region Questions
         public ICollection<Question> QuestionCreated { get; set; }
         public ICollection<Question> QuestionModified { get; set; }
@@ -76,10 +90,16 @@ namespace GasStationRatingSystem.Tables
         public ICollection<Answer> AnswerDeleted { get; set; }
         #endregion
         #endregion
-        #region Visit
+        #region Setting
         public ICollection<VisitInfo> VisitInfoCreated { get; set; }
         public ICollection<VisitInfo> VisitInfoModified { get; set; }
         public ICollection<VisitInfo> VisitInfoDeleted { get; set; }
+
+        #endregion
+        #region Visit
+        public ICollection<ManualDistribution> ManualDistributionCreated { get; set; }
+        public ICollection<ManualDistribution> ManualDistributionModified { get; set; }
+        public ICollection<ManualDistribution> ManualDistributionDeleted { get; set; }
 
         public ICollection<VisitAnswer> VisitAnswerCreated { get; set; }
         public ICollection<VisitAnswer> VisitAnswerModified { get; set; }

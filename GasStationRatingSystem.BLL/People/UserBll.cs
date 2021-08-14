@@ -218,6 +218,7 @@ namespace GasStationRatingSystem.BLL
                 tbl.UserName = user.UserName;
                 tbl.Email = user.Email;
                 tbl.IsActive = user.IsActive;
+                tbl.CityId = user.CityId;
                 if (_repoUser.Update(tbl))
                 {
                     resultViewModel.Status = true;
@@ -319,6 +320,9 @@ namespace GasStationRatingSystem.BLL
 
         #endregion
         #endregion
+        #region GetUsers
+        public IEnumerable<User> GetUsers(Guid cityId) => _repoUser.GetAllAsNoTracking().Where(p => p.IsActive && !p.IsDeleted&&p.CityId==cityId);
 
+        #endregion
     }
 }

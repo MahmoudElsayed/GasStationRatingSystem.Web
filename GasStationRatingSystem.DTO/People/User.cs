@@ -64,6 +64,8 @@ namespace GasStationRatingSystem.DTO
 
         public bool IsActive { get; set; }
         public string AddedDate { get; set; }
+        public Guid? CityId { get; set; }
+        public string CityName { get; set; }
 
     }
     #endregion

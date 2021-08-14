@@ -123,6 +123,99 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.ToTable("AnswerCategories", "Guide");
                 });
 
+            modelBuilder.Entity("GasStationRatingSystem.Tables.City", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AddedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AddedBy");
+
+                    b.HasIndex("DeletedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.ToTable("Cities", "Guide");
+                });
+
+            modelBuilder.Entity("GasStationRatingSystem.Tables.District", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AddedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("CityId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AddedBy");
+
+                    b.HasIndex("CityId");
+
+                    b.HasIndex("DeletedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.ToTable("Districts", "Guide");
+                });
+
             modelBuilder.Entity("GasStationRatingSystem.Tables.GasStation", b =>
                 {
                     b.Property<Guid>("ID")
@@ -167,6 +260,9 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.Property<DateTime?>("DeletedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DistrictId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("DistrictName")
                         .HasColumnType("nvarchar(max)");
@@ -261,6 +357,8 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.HasIndex("DeletedBy");
 
+                    b.HasIndex("DistrictId");
+
                     b.HasIndex("ModifiedBy");
 
                     b.ToTable("GasStations", "Guide");
@@ -316,6 +414,57 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.HasIndex("ModifiedBy");
 
                     b.ToTable("GasStationContacts", "Guide");
+                });
+
+            modelBuilder.Entity("GasStationRatingSystem.Tables.ManualDistribution", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("AddedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("DeletedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("DeletedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("StationId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AddedBy");
+
+                    b.HasIndex("DeletedBy");
+
+                    b.HasIndex("ModifiedBy");
+
+                    b.HasIndex("StationId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("ManualDistribution", "Setting");
                 });
 
             modelBuilder.Entity("GasStationRatingSystem.Tables.Question", b =>
@@ -391,6 +540,9 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Property<Guid?>("AddedBy")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("CityId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("CodeOfReset")
                         .HasColumnType("nvarchar(max)");
 
@@ -446,6 +598,8 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("AddedBy");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("DeletedBy");
 
@@ -719,6 +873,54 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Navigation("ModifiedUser");
                 });
 
+            modelBuilder.Entity("GasStationRatingSystem.Tables.City", b =>
+                {
+                    b.HasOne("GasStationRatingSystem.Tables.User", "CreatedUser")
+                        .WithMany("CityCreated")
+                        .HasForeignKey("AddedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "DeletedUser")
+                        .WithMany("CityDeleted")
+                        .HasForeignKey("DeletedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "ModifiedUser")
+                        .WithMany("CityModified")
+                        .HasForeignKey("ModifiedBy");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("DeletedUser");
+
+                    b.Navigation("ModifiedUser");
+                });
+
+            modelBuilder.Entity("GasStationRatingSystem.Tables.District", b =>
+                {
+                    b.HasOne("GasStationRatingSystem.Tables.User", "CreatedUser")
+                        .WithMany("DistrictCreated")
+                        .HasForeignKey("AddedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.City", "City")
+                        .WithMany("Districts")
+                        .HasForeignKey("CityId");
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "DeletedUser")
+                        .WithMany("DistrictDeleted")
+                        .HasForeignKey("DeletedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "ModifiedUser")
+                        .WithMany("DistrictModified")
+                        .HasForeignKey("ModifiedBy");
+
+                    b.Navigation("City");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("DeletedUser");
+
+                    b.Navigation("ModifiedUser");
+                });
+
             modelBuilder.Entity("GasStationRatingSystem.Tables.GasStation", b =>
                 {
                     b.HasOne("GasStationRatingSystem.Tables.User", "CreatedUser")
@@ -729,6 +931,10 @@ namespace GasStationRatingSystem.DAL.Migrations
                         .WithMany("GasStationDeleted")
                         .HasForeignKey("DeletedBy");
 
+                    b.HasOne("GasStationRatingSystem.Tables.District", "District")
+                        .WithMany("GasStations")
+                        .HasForeignKey("DistrictId");
+
                     b.HasOne("GasStationRatingSystem.Tables.User", "ModifiedUser")
                         .WithMany("GasStationModified")
                         .HasForeignKey("ModifiedBy");
@@ -736,6 +942,8 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Navigation("CreatedUser");
 
                     b.Navigation("DeletedUser");
+
+                    b.Navigation("District");
 
                     b.Navigation("ModifiedUser");
                 });
@@ -767,6 +975,39 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Navigation("GasStation");
 
                     b.Navigation("ModifiedUser");
+                });
+
+            modelBuilder.Entity("GasStationRatingSystem.Tables.ManualDistribution", b =>
+                {
+                    b.HasOne("GasStationRatingSystem.Tables.User", "CreatedUser")
+                        .WithMany("ManualDistributionCreated")
+                        .HasForeignKey("AddedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "DeletedUser")
+                        .WithMany("ManualDistributionDeleted")
+                        .HasForeignKey("DeletedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "ModifiedUser")
+                        .WithMany("ManualDistributionModified")
+                        .HasForeignKey("ModifiedBy");
+
+                    b.HasOne("GasStationRatingSystem.Tables.GasStation", "GasStation")
+                        .WithMany("ManualDistributions")
+                        .HasForeignKey("StationId");
+
+                    b.HasOne("GasStationRatingSystem.Tables.User", "User")
+                        .WithMany("ManualDistributions")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("CreatedUser");
+
+                    b.Navigation("DeletedUser");
+
+                    b.Navigation("GasStation");
+
+                    b.Navigation("ModifiedUser");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("GasStationRatingSystem.Tables.Question", b =>
@@ -802,6 +1043,10 @@ namespace GasStationRatingSystem.DAL.Migrations
                         .WithMany("UserCreated")
                         .HasForeignKey("AddedBy");
 
+                    b.HasOne("GasStationRatingSystem.Tables.City", "City")
+                        .WithMany("Users")
+                        .HasForeignKey("CityId");
+
                     b.HasOne("GasStationRatingSystem.Tables.User", "DeletedUser")
                         .WithMany("UserDeleted")
                         .HasForeignKey("DeletedBy");
@@ -813,6 +1058,8 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.HasOne("GasStationRatingSystem.Tables.UserType", "UserType")
                         .WithMany("Users")
                         .HasForeignKey("UserTypeId");
+
+                    b.Navigation("City");
 
                     b.Navigation("CreatedUser");
 
@@ -957,9 +1204,23 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Navigation("Answers");
                 });
 
+            modelBuilder.Entity("GasStationRatingSystem.Tables.City", b =>
+                {
+                    b.Navigation("Districts");
+
+                    b.Navigation("Users");
+                });
+
+            modelBuilder.Entity("GasStationRatingSystem.Tables.District", b =>
+                {
+                    b.Navigation("GasStations");
+                });
+
             modelBuilder.Entity("GasStationRatingSystem.Tables.GasStation", b =>
                 {
                     b.Navigation("GasStationContacts");
+
+                    b.Navigation("ManualDistributions");
 
                     b.Navigation("VisitInfo");
                 });
@@ -987,6 +1248,18 @@ namespace GasStationRatingSystem.DAL.Migrations
 
                     b.Navigation("AnswerModified");
 
+                    b.Navigation("CityCreated");
+
+                    b.Navigation("CityDeleted");
+
+                    b.Navigation("CityModified");
+
+                    b.Navigation("DistrictCreated");
+
+                    b.Navigation("DistrictDeleted");
+
+                    b.Navigation("DistrictModified");
+
                     b.Navigation("GasStationContactCreated");
 
                     b.Navigation("GasStationContactDeleted");
@@ -998,6 +1271,14 @@ namespace GasStationRatingSystem.DAL.Migrations
                     b.Navigation("GasStationDeleted");
 
                     b.Navigation("GasStationModified");
+
+                    b.Navigation("ManualDistributionCreated");
+
+                    b.Navigation("ManualDistributionDeleted");
+
+                    b.Navigation("ManualDistributionModified");
+
+                    b.Navigation("ManualDistributions");
 
                     b.Navigation("QuestionCreated");
 

@@ -37,8 +37,6 @@ namespace GasStationRatingSystem.Tables
         public string DistrictName { get; set; }
         public string StreetName { get; set; }
         public DateTime? AddedDate { get; set; }
-
-
         public int? WorkerCount { get; set; }
         public float? CountOfDailyWorkingHours { get; set; }
         public float? CountOfVentilationTubes { get; set; }
@@ -48,11 +46,15 @@ namespace GasStationRatingSystem.Tables
 
         public string PlatePicture { get; set; }
         public string Accreditation { get; set; }
+        [ForeignKey(nameof(District))]
+        public Guid? DistrictId { get; set; }
 
         public ICollection<GasStationContact> GasStationContacts { get; set; }
         public ICollection<VisitInfo> VisitInfo { get; set; }
+        public ICollection<ManualDistribution> ManualDistributions { get; set; }
+        public virtual District District { get; set; }
 
-        
+
     }
     [Table(nameof(GasStationContact) + "s", Schema = AppConstants.Areas.Guide)]
 

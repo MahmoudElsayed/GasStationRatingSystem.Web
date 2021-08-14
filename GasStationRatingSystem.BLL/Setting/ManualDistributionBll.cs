@@ -1,0 +1,164 @@
+﻿using AutoMapper;
+using GasStationRatingSystem.Common;
+using GasStationRatingSystem.DAL;
+using GasStationRatingSystem.DTO;
+using GasStationRatingSystem.Tables;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+
+namespace GasStationRatingSystem.BLL
+{
+   public class ManualDistributionBll
+    {
+        #region Fields
+        private const string _spManualDistributions = "Setting.[spManualDistribution]";
+
+        private readonly IRepository<ManualDistribution> _repoManualDistribution;
+        private readonly IRepository<VisitInfo> _repoVisitInfo;
+
+
+        public ManualDistributionBll(IRepository<ManualDistribution> repoManualDistribution, IRepository<VisitInfo> repoVisitInfo)
+        {
+            _repoManualDistribution = repoManualDistribution;
+            _repoVisitInfo = repoVisitInfo;
+        }
+
+        #endregion
+        #region Get
+        
+
+        public ManualDistribution GetById(Guid id)
+        {
+           
+            return _repoManualDistribution.GetAllAsNoTracking().Where(p=>p.ID==id).FirstOrDefault();
+        }
+        public ResultDTO GetStaions()
+        {
+            ResultDTO result = new ResultDTO();
+            var data = _repoManualDistribution.GetAllAsNoTracking().Where(p => p.IsActive && !p.IsDeleted&&p.UserId==_repoManualDistribution.UserId
+            && _repoVisitInfo.GetAllAsNoTracking().Count(s=>s.StationId==p.StationId)==0).Include(p=>p.GasStation).Select(p => new {
+                Id = p.StationId,
+                Name = p.GasStation.Name.TrimEnd()
+                ,
+                Latitude = p.GasStation.Lat
+                ,
+                Longitude = p.GasStation.Lng
+            }); ;
+            result.data = new { Stations = data };
+            return result;
+        }
+        #endregion
+
+
+        #region Web
+        public ResultViewModel Save(List< ManualDistributionDTO> ManualDistributionListDTO)
+        {
+            ResultViewModel resultViewModel = new ResultViewModel() { Message = AppConstants.Messages.SavedFailed };
+            foreach (var ManualDistributionDTO in ManualDistributionListDTO)
+            {
+                var config = new MapperConfiguration(p => p.CreateMap<ManualDistributionDTO, ManualDistribution>());
+                var mapper = new Mapper(config);
+                var ManualDistribution = mapper.Map<ManualDistribution>(ManualDistributionDTO);
+
+
+
+                var tbl = _repoManualDistribution.GetById(ManualDistributionDTO.ID);
+                if (tbl == null)
+                {
+                    if (_repoManualDistribution.GetAll().Where(p => p.StationId == ManualDistributionDTO.StationId && p.IsActive && !p.IsDeleted).FirstOrDefault() != null)
+                    {
+                        resultViewModel.Message = "المحطة مربوطة من قبل";
+                        //  return resultViewModel;
+
+                    }
+                    else
+                    {
+
+
+                        ManualDistribution.ID = Guid.NewGuid();
+
+                        if (_repoManualDistribution.Insert(ManualDistribution))
+                        {
+                            resultViewModel.Status = true;
+                            resultViewModel.Message = AppConstants.Messages.SavedSuccess;
+
+                        }
+                    }
+                }
+                else
+                {
+                    if (_repoManualDistribution.GetAll().Where(p => p.ID != ManualDistributionDTO.ID && p.StationId == ManualDistributionDTO.StationId && p.IsActive && !p.IsDeleted).FirstOrDefault() != null)
+                    {
+                        resultViewModel.Message = "المحطة مربوطة من قبل";
+                       // return resultViewModel;
+
+                    }
+                    else
+                    {
+                        tbl.StationId = ManualDistribution.StationId;
+                        tbl.IsActive = ManualDistribution.IsActive;
+                        tbl.UserId = ManualDistribution.UserId;
+                        if (_repoManualDistribution.Update(tbl))
+                        {
+                            resultViewModel.Status = true;
+                            resultViewModel.Message = AppConstants.Messages.SavedSuccess;
+
+                        }
+                    }
+                }
+            }
+
+            resultViewModel.Status = true;
+            resultViewModel.Message = AppConstants.Messages.SavedSuccess;
+
+
+
+            return resultViewModel;
+        }
+        public ResultViewModel Delete(Guid id)
+        {
+            ResultViewModel resultViewModel = new ResultViewModel();
+            var tbl = _repoManualDistribution.GetById(id);
+            tbl.IsDeleted = true;
+            tbl.DeletedBy = null;
+            tbl.DeletedDate = AppDateTime.Now;
+            var IsSuceess = _repoManualDistribution.Update(tbl);
+
+            resultViewModel.Status = IsSuceess;
+            resultViewModel.Message = IsSuceess ? AppConstants.Messages.DeletedSuccess : AppConstants.Messages.DeletedFailed;
+
+
+            return resultViewModel;
+        }
+        public ResultViewModel ChangeStatus(Guid id)
+        {
+            ResultViewModel resultViewModel = new ResultViewModel();
+            var tbl = _repoManualDistribution.GetById(id);
+            tbl.IsActive = !tbl.IsActive;
+            var IsSuceess = _repoManualDistribution.Update(tbl);
+
+            resultViewModel.Status = IsSuceess;
+            resultViewModel.Message = IsSuceess ? AppConstants.Messages.ChangedStatusSuccess : AppConstants.Messages.ChangedStatusFailed;
+
+
+            return resultViewModel;
+        }
+
+        #region LoadData
+        public DataTableResponse LoadData(DataTableRequest mdl)
+        {
+            var data = _repoManualDistribution.ExecuteStoredProcedure<ManualDistributionDTO>
+                (_spManualDistributions, mdl?.ToSqlParameter(_repoManualDistribution.UserId), CommandType.StoredProcedure);
+
+            return new DataTableResponse() { AaData = data, ITotalRecords = data?.FirstOrDefault()?.TotalCount ?? 0 };
+        }
+        #endregion
+       
+        #endregion
+    
+    }
+}

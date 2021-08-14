@@ -38,6 +38,24 @@ namespace GasStationRatingSystem.DAL
             modelBuilder.Entity<User>().HasMany(x => x.GasStationContactCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
             modelBuilder.Entity<User>().HasMany(x => x.GasStationContactModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
             modelBuilder.Entity<User>().HasMany(x => x.GasStationContactDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+          
+            modelBuilder.Entity<User>().HasMany(x => x.CityCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.CityModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.CityDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+
+            modelBuilder.Entity<User>().HasMany(x => x.DistrictCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.DistrictModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.DistrictDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+
+            #endregion
+            #region Setting
+            modelBuilder.Entity<User>().HasMany(x => x.ManualDistributionCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.ManualDistributionModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
+            modelBuilder.Entity<User>().HasMany(x => x.ManualDistributionDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
+
+
+            
+            #endregion
             #region Questions
             modelBuilder.Entity<User>().HasMany(x => x.QuestionCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
             modelBuilder.Entity<User>().HasMany(x => x.QuestionModified).WithOne(x => x.ModifiedUser).HasForeignKey(x => x.ModifiedBy);
@@ -52,7 +70,6 @@ namespace GasStationRatingSystem.DAL
             modelBuilder.Entity<User>().HasMany(x => x.AnswerDeleted).WithOne(x => x.DeletedUser).HasForeignKey(x => x.DeletedBy);
 
 
-            #endregion
             #endregion
             #region Visit
             modelBuilder.Entity<User>().HasMany(x => x.VisitInfoCreated).WithOne(x => x.CreatedUser).HasForeignKey(x => x.AddedBy);
@@ -88,14 +105,23 @@ namespace GasStationRatingSystem.DAL
 
         #region Guide
         public DbSet<GasStation> GasStations { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<District> Districts { get; set; }
+
         public DbSet<GasStationContact> GasStationContacts { get; set; }
+        #endregion
+        #region Setting
+        public DbSet<ManualDistribution> ManualDistributions { get; set; }
+
+        
+        #endregion
+
         #region Questions
         public DbSet<Question> Questions { get; set; }
         public DbSet<AnswerCategory> AnswerCategories { get; set; }
         public DbSet<Answer> Answers { get; set; }
 
 
-        #endregion
         #endregion
         #region Visit
         public DbSet<VisitInfo> VisitInfo { get; set; }
