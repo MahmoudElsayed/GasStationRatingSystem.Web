@@ -49,3 +49,4 @@ D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatin
 D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.DTO\obj\Debug\netcoreapp3.1\GasStationRatingSystem.DTO.csproj.CopyComplete
 D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.DTO\obj\Debug\netcoreapp3.1\GasStationRatingSystem.DTO.dll
 D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.DTO\obj\Debug\netcoreapp3.1\GasStationRatingSystem.DTO.pdb
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.DTO\obj\Debug\netcoreapp3.1\GasStationRatingSystem.DTO.GeneratedMSBuildEditorConfig.editorconfig

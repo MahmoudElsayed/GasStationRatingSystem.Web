@@ -19,3 +19,4 @@ D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatin
 D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.BLL\obj\Debug\netcoreapp3.1\GasStationRatingSystem.BLL.csproj.CopyComplete
 D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.BLL\obj\Debug\netcoreapp3.1\GasStationRatingSystem.BLL.dll
 D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.BLL\obj\Debug\netcoreapp3.1\GasStationRatingSystem.BLL.pdb
+D:\OneDrive\Documents\Projects\Other\GasStationRatingSystem\Site\GasStationRatingSystem.BLL\obj\Debug\netcoreapp3.1\GasStationRatingSystem.BLL.GeneratedMSBuildEditorConfig.editorconfig
