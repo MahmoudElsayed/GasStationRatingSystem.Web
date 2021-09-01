@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TqWAi1YRj8vTAY9qSYNmJFSs0zO2eXlcQFVu6pB0dQxvMe0Ei8Vj64y7SIlNtkOklr4TCCBcrRm87gSF1aDqAQ==",
+  "dgSpecHash": "mVkQwYu7kSwSGf0po78Or1cddmXV/xFXcuh8vlRcfgD5pH/VPvMEsXfOGFki7iv0HZRRDJvgRcR2mPj9HU3gpQ==",
   "success": true,
-  "projectFilePath": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.Tables\\GasStationRatingSystem.Tables.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\source\\repos\\MahmoudElsayed\\GasStationRatingSystem.Web\\GasStationRatingSystem.Tables\\GasStationRatingSystem.Tables.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
