@@ -6123,23 +6123,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mahmo\\.nuget\\packages\\": {},
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.DAL\\GasStationRatingSystem.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\Administrator\\source\\repos\\MahmoudElsayed\\GasStationRatingSystem.Web\\GasStationRatingSystem.DAL\\GasStationRatingSystem.DAL.csproj",
       "projectName": "GasStationRatingSystem.DAL",
-      "projectPath": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.DAL\\GasStationRatingSystem.DAL.csproj",
-      "packagesPath": "C:\\Users\\mahmo\\.nuget\\packages\\",
-      "outputPath": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.DAL\\obj\\",
+      "projectPath": "C:\\Users\\Administrator\\source\\repos\\MahmoudElsayed\\GasStationRatingSystem.Web\\GasStationRatingSystem.DAL\\GasStationRatingSystem.DAL.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Administrator\\source\\repos\\MahmoudElsayed\\GasStationRatingSystem.Web\\GasStationRatingSystem.DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\mahmo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -6156,11 +6156,11 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "projectReferences": {
-            "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.Common\\GasStationRatingSystem.Common.csproj": {
-              "projectPath": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.Common\\GasStationRatingSystem.Common.csproj"
+            "C:\\Users\\Administrator\\source\\repos\\MahmoudElsayed\\GasStationRatingSystem.Web\\GasStationRatingSystem.Common\\GasStationRatingSystem.Common.csproj": {
+              "projectPath": "C:\\Users\\Administrator\\source\\repos\\MahmoudElsayed\\GasStationRatingSystem.Web\\GasStationRatingSystem.Common\\GasStationRatingSystem.Common.csproj"
             },
-            "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.Tables\\GasStationRatingSystem.Tables.csproj": {
-              "projectPath": "D:\\OneDrive\\Documents\\Projects\\Other\\GasStationRatingSystem\\Site\\GasStationRatingSystem.Tables\\GasStationRatingSystem.Tables.csproj"
+            "C:\\Users\\Administrator\\source\\repos\\MahmoudElsayed\\GasStationRatingSystem.Web\\GasStationRatingSystem.Tables\\GasStationRatingSystem.Tables.csproj": {
+              "projectPath": "C:\\Users\\Administrator\\source\\repos\\MahmoudElsayed\\GasStationRatingSystem.Web\\GasStationRatingSystem.Tables\\GasStationRatingSystem.Tables.csproj"
             }
           }
         }
@@ -6223,7 +6223,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
