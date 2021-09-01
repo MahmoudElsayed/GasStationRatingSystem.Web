@@ -1,0 +1,41 @@
+﻿@*@model IEnumerable<AsideBarDTO>*@
+
+<div class="deznav">
+    <div class="deznav-scroll">
+        <ul class="metismenu" id="menu">
+            <li>
+                <a class=" ai-icon" href="@Url.Action("Index","Home")" aria-expanded="false">
+                    <i class="fa fa-home" aria-hidden="true"></i>
+                    <span class="nav-text">الرئيسية</span>
+                </a>
+            </li>
+            <li>
+                <a class=" ai-icon" href="~/People/User/Index" aria-expanded="false">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <span class="nav-text">المستخدمين</span>
+                </a>
+            </li>
+            <li>
+                <a class=" ai-icon" href="~/Setting/ManualDistribution/Index" aria-expanded="false">
+                    <i class="fa fa-cogs" aria-hidden="true"></i>
+                    <span class="nav-text">التوزيع اليدوي</span>
+                </a>
+            </li>
+
+            <li>
+                <a class=" ai-icon" href="~/Guide/GasStation/Index" aria-expanded="false">
+                    <i class="fa fa-list" aria-hidden="true"></i>
+                    <span class="nav-text">المحطات</span>
+                </a>
+            </li>
+            <li>
+                <a class=" ai-icon" href="~/Report/GetVisitInfo/Index" aria-expanded="false">
+                    <i class="fas fa-receipt" aria-hidden="true"></i>
+                    <span class="nav-text">تقرير التقييمات</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+

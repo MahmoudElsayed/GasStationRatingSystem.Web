@@ -5,6 +5,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Reports\GetVisitInfoXtraReport.repx" />
+    <None Remove="Reports\VisitAnswerOptionXtraReport.repx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Reports\GetVisitInfoXtraReport.repx" />
+    <EmbeddedResource Include="Reports\VisitAnswerOptionXtraReport.repx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Shared\_Layout.cshtml" />
+    <None Include="Views\Shared\_ValidationScriptsPartial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.AspNetCore.Reporting" Version="19.2.6" />
+    <PackageReference Include="DevExpress.Reporting.Core" Version="19.2.6" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">
       <PrivateAssets>all</PrivateAssets>
@@ -15,14 +33,31 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="3.1.17" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.1.4" />
+    <PackageReference Include="Swashbuckle.Core" Version="5.6.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GasStationRatingSystem.Common\GasStationRatingSystem.Common.csproj" />
     <ProjectReference Include="..\GasStationRatingSystem.DAL\GasStationRatingSystem.DAL.csproj" />
     <ProjectReference Include="..\GasStationRatingSystem.IOC\GasStationRatingSystem.IOC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Reports\GetVisitInfoXtraReport.cs">
+      <DependentUpon>GetVisitInfoXtraReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\GetVisitInfoXtraReport.Designer.cs">
+      <DependentUpon>GetVisitInfoXtraReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\VisitAnswerOptionXtraReport.cs">
+      <DependentUpon>VisitAnswerOptionXtraReport.repx</DependentUpon>
+    </Compile>
+    <Compile Update="Reports\VisitAnswerOptionXtraReport.Designer.cs">
+      <DependentUpon>VisitAnswerOptionXtraReport.repx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

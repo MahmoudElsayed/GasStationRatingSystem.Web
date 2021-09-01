@@ -1,2 +1,0 @@
-# GasStationRatingSystem.Web
- GasStationRatingSystem.Web

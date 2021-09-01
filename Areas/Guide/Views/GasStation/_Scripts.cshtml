@@ -1,0 +1,152 @@
+﻿<script>
+    $(document).ready(function () {
+        LoadTable();
+    });
+        let form = $('form').first();
+    form.submit(function (e) {
+        e.preventDefault();
+
+        var valid = form.valid();
+        if (valid) {
+            Save();
+        }
+    });
+    function Save() {
+
+        $.post('@Url.GetAction("Save")', form.serialize() , function (res) {
+
+            if (res.status) {
+                alertify.success(res.message);
+                   setTimeout(function () {
+                        window.location.href = "@Url.GetAction("Index")";
+                    }, 2000);
+            }
+            else {
+                alertify.alert(res.message).setHeader('@AppConstants.Messages.StopTitle');
+
+            }
+
+
+
+
+        });
+
+    }
+
+        function LoadTable() {
+        $('#tbl').DataTable().destroy();
+            dt = $('#tbl').DataTable({ "columnDefs": [{ "defaultContent": "-", "targets": "_all" }],
+
+                pageLength: 20,
+                pagijngType: "full_numbers",
+                serverSide: true,
+                processing: true,
+                lengthMenu: [ 10, 25, 50, 75, 100 ],
+                sAjaxSource: '@Url.GetAction("LoadDataTable")',
+                sServerMethod: "POST",
+                bPaginate: true,
+                paging: true,
+                dom: 'Blfrtip',
+                buttons: [
+
+
+                ],
+                columns: [
+
+
+
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row, meta) {
+                            return '<input type="hidden" value="'+data.id+'"><label>' + (meta.row + meta.settings._iDisplayStart + 1) + '</label>';
+                        }
+
+                    },
+
+
+
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) { return '<label >' + (data.name ?? "") + '</label>' }
+
+                    },
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) { return '<label >' + (data.ownerName ?? "") + '</label>' }
+
+                    },
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) { return '<label >' + (data.launcherName ?? "") + '</label>' }
+
+                    },
+
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) { return '<label>' + (data.addedDate ?? "") + '</label>' }
+
+                    },
+
+
+
+                    {
+
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) {
+                            let btn = '';
+                            
+
+                                 btn += `<a title="تعديل"  href="@Url.GetAction("Edit")/${data.id}" onclick="Edit(this)" class="btn btn-info" style="margin:5px"><i class="fa fa-pencil"></i></a>`;
+                              
+                           
+                                 btn += '<button title="حذف"  type="button" onclick="Delete(this)" class="btn btn-info"><i class="fa fa-trash"></i></i></button>';
+                            
+                            return btn;
+
+                        }
+                    }
+                ]
+            });
+
+        }
+    //#region Delete
+
+        function Delete(e) {
+
+        alertify.confirm().setting('modal', false);
+
+        var btn = $(e);
+        var id = $(btn.closest('tr')).find('input[type=hidden]').val();
+        alertify.confirm('هل انت متاكد من اجراء العملية', '', function () {
+
+            $.post('@Url.GetAction("Delete")', {id:id}, function (res) {
+
+                 if (res.status) {
+                     alertify.success(res.message);
+                     btn.closest('tr').remove();
+
+
+                }
+                else {
+                    alertify.alert(res.message).setHeader('توقف');
+
+                }
+
+
+
+
+            });
+
+        },
+
+            function () { }
+        ).set('labels', { ok: 'نعم', cancel: 'لا' });
+    }
+        //#endregion
+</script>

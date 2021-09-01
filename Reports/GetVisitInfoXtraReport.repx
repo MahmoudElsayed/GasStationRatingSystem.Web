@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XtraReportsLayoutSerializer SerializerVersion="19.2.6.0" Ref="1" ControlType="DevExpress.XtraReports.UI.XtraReport, DevExpress.XtraReports.v19.2, Version=19.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Name="GetVisitInfoXtraReport" Margins="3, 4, 4, 166" PageWidth="850" PageHeight="1100" Version="19.2" EventsInfo="|subreport1,BeforePrint,subreport1_BeforePrint" DataMember="Dashboard_GetVisitInfo" DataSource="#Ref-0" Font="Arial, 9.75pt">
+  <Bands>
+    <Item1 Ref="2" ControlType="TopMarginBand" Name="TopMargin" HeightF="4" />
+    <Item2 Ref="3" ControlType="BottomMarginBand" Name="BottomMargin" HeightF="166.166641">
+      <Controls>
+        <Item1 Ref="4" ControlType="XRPageInfo" Name="pageInfo1" PageInfo="DateTime" SizeF="315,23" LocationFloat="0, 133.166656" StyleName="PageInfo" />
+        <Item2 Ref="5" ControlType="XRPageInfo" Name="pageInfo2" TextFormatString="Page {0} of {1}" TextAlignment="TopRight" SizeF="315,23" LocationFloat="518, 133.166656" StyleName="PageInfo" />
+      </Controls>
+    </Item2>
+    <Item3 Ref="6" ControlType="GroupHeaderBand" Name="GroupHeader1" GroupUnion="WithFirstDetail" HeightF="0" />
+    <Item4 Ref="7" ControlType="DetailBand" Name="Detail" HeightF="372.499939">
+      <Controls>
+        <Item1 Ref="8" ControlType="XRPageBreak" Name="pageBreak1" LocationFloat="0, 360.499939" />
+        <Item2 Ref="9" ControlType="XRSubreport" Name="subreport1" SizeF="833,291.833344" LocationFloat="6.35782862E-06, 46.6666679" />
+        <Item3 Ref="10" ControlType="XRTable" Name="table2" SizeF="644.1666,25" LocationFloat="95.99999, 10" OddStyleName="DetailData3_Odd" Font="Arial, 9.75pt, style=Bold">
+          <Rows>
+            <Item1 Ref="11" ControlType="XRTableRow" Name="tableRow2" Weight="11.5">
+              <Cells>
+                <Item1 Ref="12" ControlType="XRTableCell" Name="tableCell6" Weight="0.42539597731370193" TextAlignment="MiddleCenter" StyleName="DetailData1" Font="Arial, 12pt, style=Bold">
+                  <ExpressionBindings>
+                    <Item1 Ref="13" EventName="BeforePrint" PropertyName="Text" Expression="[StationName]" />
+                  </ExpressionBindings>
+                  <StylePriority Ref="14" UseFont="false" UseTextAlignment="false" />
+                </Item1>
+              </Cells>
+            </Item1>
+          </Rows>
+          <StylePriority Ref="15" UseFont="false" />
+        </Item3>
+      </Controls>
+    </Item4>
+    <Item5 Ref="16" ControlType="PageHeaderBand" Name="PageHeader" HeightF="58.6666756">
+      <Controls>
+        <Item1 Ref="17" ControlType="XRLabel" Name="label1" Text="تقرير تقييم المحطات" TextAlignment="MiddleCenter" SizeF="644.1666,44.8418159" LocationFloat="95.9999847, 10" StyleName="Title" Font="Arial, 14.25pt, style=Bold">
+          <StylePriority Ref="18" UseFont="false" UseTextAlignment="false" />
+        </Item1>
+      </Controls>
+    </Item5>
+  </Bands>
+  <StyleSheet>
+    <Item1 Ref="19" Name="Title" BorderStyle="Inset" Font="Arial, 14.25pt" ForeColor="255,76,70,62" BackColor="Transparent" BorderColor="Black" Sides="None" StringFormat="Near;Near;0;None;Character;Default" BorderWidthSerializable="1" />
+    <Item2 Ref="20" Name="DetailCaption1" BorderStyle="Inset" Padding="6,6,0,0,100" Font="Arial, 8.25pt, style=Bold" ForeColor="255,76,70,62" BackColor="255,227,202,166" BorderColor="White" Sides="Left" StringFormat="Near;Center;0;None;Character;Default" TextAlignment="MiddleLeft" BorderWidthSerializable="2" />
+    <Item3 Ref="21" Name="DetailData1" BorderStyle="Inset" Padding="6,6,0,0,100" Font="Arial, 8.25pt" ForeColor="Black" BorderColor="Transparent" Sides="Left" StringFormat="Near;Center;0;None;Character;Default" TextAlignment="MiddleLeft" BorderWidthSerializable="2" />
+    <Item4 Ref="22" Name="DetailData3_Odd" BorderStyle="Inset" Padding="6,6,0,0,100" Font="Arial, 8.25pt" ForeColor="Black" BackColor="255,249,245,241" BorderColor="Transparent" Sides="None" StringFormat="Near;Center;0;None;Character;Default" TextAlignment="MiddleLeft" BorderWidthSerializable="1" />
+    <Item5 Ref="23" Name="PageInfo" BorderStyle="Inset" Padding="2,2,0,0,100" Font="Arial, 8.25pt, style=Bold" ForeColor="255,76,70,62" StringFormat="Near;Near;0;None;Character;Default" />
+  </StyleSheet>
+  <ComponentStorage>
+    <Item1 Ref="0" ObjectType="DevExpress.DataAccess.Sql.SqlDataSource,DevExpress.DataAccess.v19.2" Name="sqlDataSource1" Base64="PFNxbERhdGFTb3VyY2UgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxDb25uZWN0aW9uIE5hbWU9Ikdhc1N0YXRpb25SYXRpbmdTeXN0ZW1Db25uZWN0aW9uIiBGcm9tQXBwQ29uZmlnPSJ0cnVlIiAvPjxRdWVyeSBUeXBlPSJTdG9yZWRQcm9jUXVlcnkiIE5hbWU9IkRhc2hib2FyZF9HZXRWaXNpdEluZm8iPjxQcm9jTmFtZT5EYXNoYm9hcmQuR2V0VmlzaXRJbmZvPC9Qcm9jTmFtZT48L1F1ZXJ5PjxSZXN1bHRTY2hlbWE+PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IkRhc2hib2FyZF9HZXRWaXNpdEluZm8iPjxGaWVsZCBOYW1lPSJTdGF0aW9uSWQiIFR5cGU9Ikd1aWQiIC8+PEZpZWxkIE5hbWU9IlZpc2l0SWQiIFR5cGU9Ikd1aWQiIC8+PEZpZWxkIE5hbWU9IlN0YXRpb25OYW1lIiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjwvRGF0YVNldD48L1Jlc3VsdFNjaGVtYT48Q29ubmVjdGlvbk9wdGlvbnMgQ2xvc2VDb25uZWN0aW9uPSJ0cnVlIiAvPjwvU3FsRGF0YVNvdXJjZT4=" />
+  </ComponentStorage>
+</XtraReportsLayoutSerializer>

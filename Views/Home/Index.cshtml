@@ -1,8 +1,83 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<style>
+    .piee {
+        width: 100%;
+        direction: ltr;
+        position: relative
+    }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    .canvasjs-chart-container {
+        height: 300px
+    }
+
+    .pie-border.card {
+        box-shadow: 1px 1px 7px 0px #656565;
+        border-radius: 10px
+    }
+
+        .pie-border.card .card-header, .pie-border.card .card-footer {
+            color: #fff
+        }
+
+    .piee canvas {
+        max-width: 100%;
+    }
+
+    .pie-border.card .table {
+        color: #fff
+    }
+
+    .pie-border .dash-icon i {
+        width: 40px;
+        height: 40px;
+        border-radius: 5px;
+        line-height: 40px;
+        text-align: center;
+        color: #fff;
+        font-size: 20px;
+        float: left
+    }
+
+    .pie-border {
+        padding: 10px;
+        box-shadow: 1px 1px 7px 0px #656565;
+        border-radius: 10px
+    }
+
+        .pie-border .dash-icon {
+            overflow: hidden;
+        }
+</style>
+<!--**********************************
+      Content body start
+  ***********************************-->
+
+<div class="row page-titles mx-0">
+    <div class="col-sm-6 p-md-0">
+        <div class="welcome-text">
+            <h4> الرئيسية</h4>
+        </div>
+
+    </div>
+
+
 </div>
+<!-- Styles -->
+<style>
+    .chartdiv {
+        width: 100%;
+        height: 500px;
+    }
+
+        .chartdiv * {
+            direction: ltr
+        }
+</style>
+
+
+<partial name="_Dashboard" />
+@section Scripts
+{
+    <script src="~/js/canvasjs.min.js"></script>
+
+    <partial name="_Scripts" />
+}

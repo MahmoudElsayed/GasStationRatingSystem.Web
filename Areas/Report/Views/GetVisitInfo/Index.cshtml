@@ -1,0 +1,24 @@
+﻿
+@section Styles  {
+
+<link rel="stylesheet" href="@Url.Content("~/css/thirdparty.bundle.css")" />
+<link rel="stylesheet" href="@Url.Content("~/css/viewer.part.bundle.css")" />
+
+<script src="@Url.Content("~/js/thirdparty.bundle.js")"></script>
+<script src="@Url.Content("~/js/viewer.part.bundle.js")"></script>
+}
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        @(Html.DevExpress().WebDocumentViewer("DocumentViewer").Height("1000px")
+    .Bind(new GetVisitInfoXtraReport()))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

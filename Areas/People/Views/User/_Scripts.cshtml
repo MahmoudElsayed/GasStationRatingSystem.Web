@@ -1,0 +1,352 @@
+﻿<script>
+    let form = $('form').first();
+    form.submit(function (e) {
+        e.preventDefault();
+
+        var valid = form.valid();
+        if (valid) {
+            Save();
+        }
+    });
+    function Save() {
+
+        $.post('@Url.GetAction("Save")', form.serialize() , function (res) {
+
+            if (res.status) {
+                alertify.success(res.message);
+                form[0].reset();
+                $('#tbl').DataTable().ajax.reload();
+            }
+            else {
+                alertify.alert(res.message).setHeader('@AppConstants.Messages.StopTitle');
+
+            }
+
+
+
+
+        });
+
+    }
+    function LoadTable() {
+        $('#tbl').DataTable().destroy();
+            dt = $('#tbl').DataTable({ "columnDefs": [{ "defaultContent": "-", "targets": "_all" }],
+
+                pageLength: 20,
+                pagijngType: "full_numbers",
+                serverSide: true,
+                processing: true,
+                lengthMenu: [ 10, 25, 50, 75, 100 ],
+                sAjaxSource: '@Url.GetAction("LoadDataTable")',
+                sServerMethod: "POST",
+                bPaginate: true,
+                paging: true,
+                dom: 'Blfrtip',
+                buttons: [
+
+
+                ],
+                columns: [
+
+
+
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row, meta) {
+                            return '<input type="hidden" name="' + data.userName+'" value="'+data.id+'"><label>' + (meta.row + meta.settings._iDisplayStart + 1) + '</label>';
+                        }
+
+                    },
+
+
+
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) { return '<label name="UserName">' + (data.userName ?? "") + '</label>' }
+
+                    },
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) { return '<label name="Email">' + (data.email ?? "") + '</label>' }
+
+                    },
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) { return '<label name="CityId" CityId="'+data.cityId+'">' + (data.cityName ?? "") + '</label>' }
+
+                    },
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) { return '<label>' + (data.addedDate ?? "") + '</label>' }
+
+                    },
+                    {
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) {
+                            return ` <label class="switch">
+                                <input onchange='ChangeStatus(this);' name="IsActive"  type="checkbox" ${data.isActive?'checked':''}>
+                                <span class="slider round"></span>
+                            </label>` }
+
+                    },
+
+             
+                    {
+
+                        data: null,
+                        bSortable: false,
+                        render: function (data, type, row) {
+                            let btn = '';
+
+                            btn += '<button title="تعديل"  type="button" onclick="Edit(this)" class="btn btn-info" style="margin:5px"><i class="fa fa-pencil"></i></button>';
+                            btn += '<button title="حذف"  type="button" onclick="Delete(this)" class="btn btn-info"><i class="fa fa-trash"></i></i></button>';
+
+                            return btn;
+
+                        }
+                    }
+                ]
+            });
+
+        }
+
+    function ShowUserPermissionModal(e) {
+        var btn = $(e);
+
+        var input = $(btn.closest('tr')).find('input[type=hidden]');
+        var id = input.val();
+        var name = input.attr('name');
+        $.post('@Url.GetAction("ShowUserPermission")', {id:id} , function (res) {
+
+            $('#tbodyUserPermissions').html('');
+
+            $('#tbodyUserPermissions').html(res);
+            $('#UserPermissions-Modal').modal();
+            $('#tbodyUserPermissions').attr('userId', id);
+            $('.lblName').html(name);
+
+
+
+        });
+
+
+    }
+
+        function ShowUserClientModal(e) {
+        var btn = $(e);
+            var input = $(btn.closest('tr')).find('input[type=hidden]');
+            var id = input.val();
+            var name = input.attr('name');
+
+        $.post('@Url.GetAction("ShowUserClient")', {id:id} , function (res) {
+
+            $('#ddlUserClients').html('');
+
+            $('#ddlUserClients').html(res);
+            $('#UserClients-Modal').modal();
+            $('#ddlUserClients').attr('userId', id);
+            $('.lblName').html(name);
+
+
+
+        });
+
+
+    }
+
+
+
+    function SaveUserPermission() {
+
+
+            var ArrayOfObj = [];
+        $.each($('#tbodyUserPermissions').children(), function (key, value) {
+            var tr = $(value);
+            var Permissions = tr.find('.Permission');
+            $.each(Permissions, function (k, v) {
+                var obj = new Object();
+                var check = $(v);
+                var PageId = tr.find('[name=PageId]').val();
+                var HasPermission = check.prop('checked');
+
+                obj.PageId = PageId;
+                obj.HasPermission = HasPermission;
+                obj.ActionName = check.attr('name');
+
+                ArrayOfObj.push(obj);
+            });
+
+
+        });
+        console.log(ArrayOfObj);
+
+            $.post('@Url.GetAction("SaveUserPermission")', { userId: $('#tbodyUserPermissions').attr('userId'), mdl: ArrayOfObj }, function (res) {
+
+
+                if (res.status) {
+                    alertify.success(res.message);
+                }
+                else {
+                    alertify.alert(res.message).setHeader('@AppConstants.Messages.StopTitle');
+
+                }
+
+
+
+            });
+
+
+    }
+
+        function SaveUserClient() {
+
+
+            let ArrayOfObj = [];
+            $.each($('#ddlUserClients').children(), function (key, value) {
+                let obj = new Object();
+
+                let ClientId = $(value).val();
+                let UserId = $('#ddlUserClients').attr('userid')
+                let ClientChecked = $(value).prop('selected');
+
+                obj.ClientId = ClientId;
+                obj.UserId = UserId;
+                obj.ClientChecked = ClientChecked;
+                ArrayOfObj.push(obj);
+            });
+          //  console.log(ArrayOfObj);
+            let frm = new FormData();
+            frm.append('userId', $('#ddlUserClients').attr('userId'));
+            frm.append('mdl', JSON.stringify(ArrayOfObj));
+           
+
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.GetAction("SaveUserClient")',
+                data: frm,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (res) {
+                    if (res.status) {
+                        alertify.success(res.message);
+                    }
+                    else {
+                        alertify.alert(res.message).setHeader('@AppConstants.Messages.StopTitle');
+
+                    }
+                },
+                failure: function (response) {
+                },
+                error: function (response) {
+                }
+            });
+            
+
+
+    }
+
+
+  //#region Delete
+
+        function Delete(e) {
+
+        alertify.confirm().setting('modal', false);
+
+        var btn = $(e);
+        var id = $(btn.closest('tr')).find('input[type=hidden]').val();
+        alertify.confirm('هل انت متاكد من اجراء العملية', '', function () {
+
+            $.post('@Url.GetAction("Delete")', {id:id}, function (res) {
+
+                 if (res.status) {
+                     alertify.success(res.message);
+                     btn.closest('tr').remove();
+
+
+                }
+                else {
+                    alertify.alert(res.message).setHeader('توقف');
+
+                }
+
+
+
+
+            });
+
+        },
+
+            function () { }
+        ).set('labels', { ok: 'نعم', cancel: 'لا' });
+    }
+        //#endregion
+    function Edit(e) {
+        var btn = $(e);
+        var tr = $(btn.closest('tr'));
+        var id = tr.find('input[type=hidden]').val();
+
+        var UserName = tr.find('label[name=UserName]').text();
+        var Email = tr.find('label[name=Email]').text();
+        var IsActive = tr.find('input[name=IsActive]').prop('checked');
+        var CityId = tr.find('label[name=CityId]').attr('CityId');
+
+        console.log(IsActive);
+        $('#txtUserName').val(UserName);
+        $('#txtEmail').val(Email);
+        $('#chkIsActive').prop('checked', IsActive);
+        $('#CityId').val(CityId).trigger('change');
+
+        $('#txtId').val(id);
+
+        window.scrollTo(0, 0);
+
+    }
+
+    function ChangeStatus(e) {
+          alertify.confirm().setting('modal', false);
+
+        var btn = $(e);
+        var id = $(btn.closest('tr')).find('input[type=hidden]').val();
+        alertify.confirm('هل انت متاكد من اجراء العملية', '', function () {
+
+            $.post('@Url.GetAction("ChangeStatus")', {id:id}, function (res) {
+
+                 if (res.status) {
+                     alertify.success(res.message);
+
+
+                }
+                else {
+                    alertify.alert(res.message).setHeader('توقف');
+
+                }
+
+
+
+
+            });
+
+        },
+
+            function () { }
+        ).set('labels', { ok: 'نعم', cancel: 'لا' });
+    }
+    function CheckAll(elem) {
+        var checked = $(elem).prop('checked');
+        var name = $(elem).attr('name');
+        $(`input[name=${name}]`).prop('checked', checked);
+
+    }
+    $(document).ready(function () {
+        LoadTable();
+    });
+
+</script>

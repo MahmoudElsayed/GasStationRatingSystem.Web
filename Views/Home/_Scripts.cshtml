@@ -1,0 +1,93 @@
+﻿
+
+<script>
+    var colorsx = ['#4886F5', '#BC5BCF', '#32D7ED', '#8FB9FF', '#9AFE2E', 'purple', '#0000FF', '#01A9DB', '#FA5858', '#F79F81', '#F7D358', '#9AFE2E', '#64FE2E', '#2E9AFE', '#848484', '#8A0829', '#0B6138', '#9AFE2E', '#B18904', '#7401DF', "#8258FA"];
+    var blue = ['#4886F5', '#4886F5', '#4886F5', '#4886F5', '#4886F5', '#4886F5', '#4886F5', '#4886F5', '#4886F5'];
+    let txtDateFrom = $('#txtDateFrom'), txtDateTo = $('#txtDateTo'), ddlClients = $('#ddlClients'),
+        hTotal = $('#hTotal'), hTotalDraft = $('#hTotalDraft'), hTotalInProgress = $('#hTotalInProgress'), hTotalApproved = $('#hTotalApproved'), hTotalRejected = $('#hTotalRejected')
+        , tbodyTopBranches = $('#tbodyTopBranches'), tbodyTopProducts = $('#tbodyTopProducts'), divBranchCharts = $('#divBranchCharts')
+
+        , hNotStarted = $('#hNotStarted')
+        , hTotalEnded = $('#hTotalEnded');
+
+
+
+
+
+
+
+    $(document).ready(function () {
+
+        LoadTotals();
+        LoadCitiesSations();
+
+
+    });
+    function LoadTotals() {
+            $.post('@Url.GetAction("LoadTotals")', {}, function (res) {
+                hTotal.html(res.total);
+                hNotStarted.html(res.notStarted);
+                hTotalInProgress.html(res.inProgress);
+                hTotalEnded.html(res.ended);
+    });
+    }
+    function LoadCitiesSations() {
+        $.post('@Url.GetAction("LoadCitiesSations")', {}, function (res) {
+            $('divCities').append('');
+
+            $.each(res, function (k, value) {
+                var divId = 'div' + k;
+                var div = `<div class="col-md-6"><div class="card"><div class="card-header" style="color:#fff">الاجمالي : ${value.total}</div><div id='${divId}' class=" chartdiv"></div></div></div>`;
+                $('#divCities').append(div);
+                am4core.ready(function () {
+
+                    // Themes begin
+                    am4core.useTheme(am4themes_dark);
+                    //am4core.useTheme(am4themes_animated);
+                    var chart = am4core.create(divId, am4charts.PieChart3D);
+                    chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+                    chart.legend = new am4charts.Legend();
+
+                    chart.data = [
+                        {
+                            country: "قيد التقييم",
+                            litres: value.inProgress
+                        },
+                        {
+                            country: "لم تُقيم",
+                            litres: value.notStarted
+                        },
+                        {
+                            country: "المُقيمة",
+                            litres: value.ended
+                        },
+
+                    ];
+
+                    var series = chart.series.push(new am4charts.PieSeries3D());
+                    series.legendSettings.itemValueText = "{litres}";
+                    series.dataFields.value = "litres";
+                    series.dataFields.category = "country";
+                    series.ticks.template.disabled = true;
+                    series.alignLabels = false;
+                    series.labels.template.text = "{litres}";
+                    series.labels.template.radius = am4core.percent(-40);
+                    series.labels.template.fill = am4core.color("white");
+
+                    series.colors.list = [
+                        am4core.color("#32D7ED"),
+                        am4core.color("#e74c3c"),
+                        am4core.color("#27ae60"),
+                    ];
+
+
+
+                }); // end am4core.ready()
+
+            });
+
+        });
+    }
+
+</script>
